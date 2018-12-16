@@ -28,13 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.loadConfigButton = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
+            this.proxyButton = new System.Windows.Forms.Button();
+            this.endButton = new System.Windows.Forms.Button();
+            this.countButton = new System.Windows.Forms.Button();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.logLabel = new System.Windows.Forms.Label();
+            this.confOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.logListView = new System.Windows.Forms.ListView();
+            this.SuspendLayout();
+            // 
+            // loadConfigButton
+            // 
+            resources.ApplyResources(this.loadConfigButton, "loadConfigButton");
+            this.loadConfigButton.Name = "loadConfigButton";
+            this.loadConfigButton.UseVisualStyleBackColor = true;
+            this.loadConfigButton.Click += new System.EventHandler(this.loadConfigButton_Click);
+            // 
+            // startButton
+            // 
+            resources.ApplyResources(this.startButton, "startButton");
+            this.startButton.Name = "startButton";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // proxyButton
+            // 
+            resources.ApplyResources(this.proxyButton, "proxyButton");
+            this.proxyButton.Name = "proxyButton";
+            this.proxyButton.UseVisualStyleBackColor = true;
+            this.proxyButton.Click += new System.EventHandler(this.proxyButton_Click);
+            // 
+            // endButton
+            // 
+            resources.ApplyResources(this.endButton, "endButton");
+            this.endButton.Name = "endButton";
+            this.endButton.UseVisualStyleBackColor = true;
+            this.endButton.Click += new System.EventHandler(this.endButton_Click);
+            // 
+            // countButton
+            // 
+            resources.ApplyResources(this.countButton, "countButton");
+            this.countButton.Name = "countButton";
+            this.countButton.UseVisualStyleBackColor = true;
+            this.countButton.Click += new System.EventHandler(this.countButton_Click);
+            // 
+            // titleLabel
+            // 
+            resources.ApplyResources(this.titleLabel, "titleLabel");
+            this.titleLabel.Name = "titleLabel";
+            // 
+            // logLabel
+            // 
+            resources.ApplyResources(this.logLabel, "logLabel");
+            this.logLabel.Name = "logLabel";
+            // 
+            // confOpenFileDialog
+            // 
+            this.confOpenFileDialog.FileName = "openFileDialog1";
+            this.confOpenFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.confOpenFileDialog_FileOk);
+            // 
+            // logListView
+            // 
+            resources.ApplyResources(this.logListView, "logListView");
+            this.logListView.Name = "logListView";
+            this.logListView.UseCompatibleStateImageBehavior = false;
+            this.logListView.View = System.Windows.Forms.View.List;
+            // 
+            // Form1
+            // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.logListView);
+            this.Controls.Add(this.logLabel);
+            this.Controls.Add(this.titleLabel);
+            this.Controls.Add(this.countButton);
+            this.Controls.Add(this.endButton);
+            this.Controls.Add(this.proxyButton);
+            this.Controls.Add(this.startButton);
+            this.Controls.Add(this.loadConfigButton);
+            this.Name = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button loadConfigButton;
+        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button proxyButton;
+        private System.Windows.Forms.Button endButton;
+        private System.Windows.Forms.Button countButton;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label logLabel;
+        private System.Windows.Forms.OpenFileDialog confOpenFileDialog;
+        private System.Windows.Forms.ListView logListView;
     }
 }
 

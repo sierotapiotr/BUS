@@ -1,0 +1,11 @@
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\bin\Debug\ElectionAuthority.exe.config
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\bin\Debug\ElectionAuthority.exe
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\bin\Debug\ElectionAuthority.pdb
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.csprojResolveAssemblyReference.cache
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.Form1.resources
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.Properties.Resources.resources
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.csproj.GenerateResource.Cache
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.csproj.CoreCompileInputs.cache
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.exe
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\obj\Debug\ElectionAuthority.pdb
+B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\bin\Debug\BouncyCastle.Crypto.dll
