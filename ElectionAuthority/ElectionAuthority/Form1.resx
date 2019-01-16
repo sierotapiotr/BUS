@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="loadConfigButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 108</value>
+    <value>370, 12</value>
   </data>
   <data name="loadConfigButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 39</value>
@@ -141,13 +141,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;loadConfigButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="startButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="startButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 163</value>
+    <value>605, 108</value>
   </data>
   <data name="startButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 71</value>
@@ -168,13 +168,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;startButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="proxyButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="proxyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 253</value>
+    <value>605, 195</value>
   </data>
   <data name="proxyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 53</value>
@@ -195,13 +195,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;proxyButton.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="endButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="endButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>605, 325</value>
+    <value>605, 264</value>
   </data>
   <data name="endButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 65</value>
@@ -222,7 +222,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;endButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="countButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -249,7 +249,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;countButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="titleLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -279,7 +279,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;titleLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="logLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -309,7 +309,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;logLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="confOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -333,8 +333,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;logListView.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="loadCandidatesButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="loadCandidatesButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>559, 12</value>
+  </data>
+  <data name="loadCandidatesButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 39</value>
+  </data>
+  <data name="loadCandidatesButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="loadCandidatesButton.Text" xml:space="preserve">
+    <value>Wczytaj listę kandydatów</value>
+  </data>
+  <data name="&gt;&gt;loadCandidatesButton.Name" xml:space="preserve">
+    <value>loadCandidatesButton</value>
+  </data>
+  <data name="&gt;&gt;loadCandidatesButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loadCandidatesButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;loadCandidatesButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="candOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>208, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -351,6 +382,12 @@
     <value>confOpenFileDialog</value>
   </data>
   <data name="&gt;&gt;confOpenFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;candOpenFileDialog.Name" xml:space="preserve">
+    <value>candOpenFileDialog</value>
+  </data>
+  <data name="&gt;&gt;candOpenFileDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

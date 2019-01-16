@@ -42,7 +42,7 @@ namespace ElectionAuthority
         /// <summary>
         /// Typy logów
         /// </summary>
-        public enum LogType { Info, Message, Error, Green };
+        public enum LogType { Info, Message, Error, Special };
 
         /// <summary>
         /// Dodawanie logów
@@ -65,7 +65,7 @@ namespace ElectionAuthority
                 case LogType.Error:
                     item.ForeColor = Color.Red;
                     break;
-                case LogType.Green:
+                case LogType.Special:
                     item.ForeColor = Color.Green;
                     break;
             }
@@ -86,7 +86,6 @@ namespace ElectionAuthority
             }
 
             logListView.Items.Add(item);
-            //logsListView.Items[logsListView.Items.Count - 1].EnsureVisible();
 
             try
             {
@@ -97,7 +96,23 @@ namespace ElectionAuthority
             }
             catch (Exception exp)
             {
-                Console.WriteLine(exp);
+                Console.WriteLine("[File logger] >> " + exp);
+            }
+        }
+
+        public void AddExpToFile(Exception ex)
+        {
+            string text = ex.ToString();
+            try
+            {
+                using (System.IO.StreamWriter file = new StreamWriter(@"EA-logs.txt", true))
+                {
+                    file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> Wystąpił wyjątek: " + Environment.NewLine + text);
+                }
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine("[Exception logger] >> " + exp);
             }
         }
     }

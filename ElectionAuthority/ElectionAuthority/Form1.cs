@@ -44,6 +44,17 @@ namespace ElectionAuthority
         {
             configuration.LoadConfiguration(confOpenFileDialog.FileName);
             enableStepTwo();
+        }
+
+        private void loadCandidatesButton_Click(object sender, EventArgs e)
+        {
+           candOpenFileDialog.ShowDialog();
+        }
+
+        private void candOpenFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            configuration.LoadCandidates(candOpenFileDialog.FileName);
+            enableStepThree();
             electionAuthority = new ElectionAuthority(this.logs, this.configuration, this);
         }
 
@@ -70,8 +81,16 @@ namespace ElectionAuthority
 
         private void enableStepTwo()
         {
-            this.startButton.Enabled = true;
+            this.loadCandidatesButton.Enabled = true;
             this.loadConfigButton.Enabled = false;
         }
+
+        private void enableStepThree()
+        {
+            this.startButton.Enabled = true;
+            this.loadCandidatesButton.Enabled = false;
+        }
+
+
     }
 }

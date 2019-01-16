@@ -29,87 +29,96 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// generate ONE permutation
+        /// Wykonanie pojedynczej permutacji
         /// </summary>
-        /// <param name="candidateQuantity">quantity of candidates</param>
-        /// <returns></returns>
-        public List<BigInteger> generatePermutation(int candidateQuantity)
+        /// <param name="n">długość permutacji</param>
+        /// <returns>zwraca listę liczb (wygenerowaną permutację)</returns>
+        public List<BigInteger> PermutateOnce(int n)
         {
             List<BigInteger> permutation = new List<BigInteger>();
-            for (int i = 1; i <= candidateQuantity; i++)
+            for (int i = 1; i <= n; i++)
             {
                 permutation.Add(new BigInteger(i.ToString()));
             }
-            //shuffle BigInt List
+
             Shuffler.Shuffle(permutation);
             return permutation;
         }
 
-        //we create a permutation matrix in way described on "http://pl.wikipedia.org/wiki/Permutacja"
         /// <summary>
-        /// Generate permutation martix, using hamming posistion to represent one integer
+        /// Stworzenie macierzy permutacji do późniejszego wykorzystania przy jej odwracaniu
         /// </summary>
         /// <param name="permutation">permutation</param>
         /// <returns></returns>
-        private int[,] generatePermutationMatrix(List<BigInteger> permutation)
+        public int[,] CreateMatrix(List<BigInteger> permutation)
         {
-            int candidateQuantity = permutation.Count;
-            //Function allow us to get a reverse permutation. I follow the method shown at: "http://pl.wikipedia.org/wiki/Permutacja"
-            int[,] tab = new int[candidateQuantity, candidateQuantity];
-            int[] defaultList = new int[candidateQuantity];
-            //prepare default sequence = {1....m}
-            for (int i = 0; i < candidateQuantity; i++)
+            /*
+             Example:
+             
+            start        |  1  |  2  |  3  |  4  |  5  |
+            -------------|-----|-----|-----|-----|-----|
+            permutation  |  3  |  2  |  5  |  1  |  4  |             
+
+            matrix
+            
+                      0  |  0  |  1  |  0  |  0
+                    -----|-----|-----|-----|-----
+                      0  |  1  |  0  |  0  |  0
+                    -----|-----|-----|-----|-----
+                      0  |  0  |  0  |  0  |  1
+                    -----|-----|-----|-----|-----
+                      1  |  0  |  0  |  0  |  0
+                    -----|-----|-----|-----|-----
+                      0  |  0  |  0  |  1  |  0
+             */
+
+
+            int n = permutation.Count;
+            int[,] matrix = new int[n, n];
+
+            for (int i = 0; i < n; i++)
             {
-                defaultList[i] = i + 1;
-            }
-            //prepare default matrix with 0 
-            for (int i = 0; i < candidateQuantity; i++)
-            {
-                for (int j = 0; j < candidateQuantity; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    tab[i, j] = 0;
+                    matrix[i, j] = 0;
                 }
+
+                matrix[i, permutation[i].IntValue - 1] = 1;
             }
 
-            //we have to put "1" in each A(i,j)
-            for (int i = 0; i < candidateQuantity; i++)
-            {
-                tab[defaultList[i] - 1, permutation[i].IntValue - 1] = 1;
-            }
-            return tab;
+            return matrix;
         }
 
         /// <summary>
-        /// transpose matrix 
+        /// Transponowanie macierzy do wykorzystania przy odwracaniu permutacji 
         /// </summary>
-        /// <param name="m">permutation matrix</param>
-        /// <returns>transpone permutation matrix</returns>
-        private int[,] transposeMatrix(int[,] m)
+        /// <param name="m">macierz permutacji</param>
+        /// <returns>zwraca transponowaną macierz permutacji</returns>
+        public int[,] TransposeMatrix(int[,] m)
         {
-            int[,] temp = new int[m.GetLength(0), m.GetLength(1)];
+            int[,] transposed = new int[m.GetLength(0), m.GetLength(1)];
             for (int i = 0; i < m.GetLength(0); i++)
                 for (int j = 0; j < m.GetLength(0); j++)
-                    temp[j, i] = m[i, j];
-            return temp;
+                    transposed[j, i] = m[i, j];
+            return transposed;
         }
 
         /// <summary>
-        /// Find inverse permuatation using a table method
+        /// Odwracanie permutacji
         /// </summary>
-        /// <param name="permutation">permutation to inverse</param>
-        /// <returns>inverse permutation</returns>
-        public List<BigInteger> getInversePermutation(List<BigInteger> permutation)
+        /// <param name="permutation">odwracana permutacja</param>
+        /// <returns>zwraca odwróconą permutację</returns>
+        public List<BigInteger> InversePermutation(List<BigInteger> permutation)
         {
-            int[,] tab = generatePermutationMatrix(permutation);
-
-            int[,] tabInv = transposeMatrix(tab);
+            int[,] matrix = CreateMatrix(permutation);
+            int[,] matrixTr = TransposeMatrix(matrix);
             List<BigInteger> inversePermutation = new List<BigInteger>();
 
-            for (int i = 0; i < tabInv.GetLength(1); i++)
+            for (int i = 0; i < matrixTr.GetLength(1); i++)
             {
-                for (int j = 0; j < tabInv.GetLength(0); j++)
+                for (int j = 0; j < matrixTr.GetLength(0); j++)
                 {
-                    if (tabInv[i, j] == 1)
+                    if (matrixTr[i, j] == 1)
                     {
                         inversePermutation.Add(new BigInteger((j + 1).ToString()));
                     }
@@ -117,6 +126,5 @@ namespace ElectionAuthority
             }
             return inversePermutation;
         }
-
     }
 }

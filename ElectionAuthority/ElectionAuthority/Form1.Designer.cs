@@ -38,6 +38,8 @@
             this.logLabel = new System.Windows.Forms.Label();
             this.confOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.logListView = new System.Windows.Forms.ListView();
+            this.loadCandidatesButton = new System.Windows.Forms.Button();
+            this.candOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // loadConfigButton
@@ -97,10 +99,23 @@
             this.logListView.UseCompatibleStateImageBehavior = false;
             this.logListView.View = System.Windows.Forms.View.List;
             // 
+            // loadCandidatesButton
+            // 
+            resources.ApplyResources(this.loadCandidatesButton, "loadCandidatesButton");
+            this.loadCandidatesButton.Name = "loadCandidatesButton";
+            this.loadCandidatesButton.UseVisualStyleBackColor = true;
+            this.loadCandidatesButton.Click += new System.EventHandler(this.loadCandidatesButton_Click);
+            // 
+            // candOpenFileDialog
+            // 
+            this.candOpenFileDialog.FileName = "openFileDialog1";
+            this.candOpenFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.candOpenFileDialog_FileOk);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.loadCandidatesButton);
             this.Controls.Add(this.logListView);
             this.Controls.Add(this.logLabel);
             this.Controls.Add(this.titleLabel);
@@ -126,6 +141,8 @@
         private System.Windows.Forms.Label logLabel;
         private System.Windows.Forms.OpenFileDialog confOpenFileDialog;
         private System.Windows.Forms.ListView logListView;
+        private System.Windows.Forms.Button loadCandidatesButton;
+        private System.Windows.Forms.OpenFileDialog candOpenFileDialog;
     }
 }
 
