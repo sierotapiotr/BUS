@@ -49,40 +49,29 @@ namespace ElectionAuthority
         public const string BLIND_PROXY_BALLOT = "BLIND_PROXY_BALLOT";
         public const string UNBLINDED_BALLOT_MATRIX = "UNBLINDED_BALLOT_MATRIX";
         /*
-
         public const string CANDIDATE_LIST = "CandidateList.xml";
         
         public const string DISCONNECTED_NODE = "Someone has been disconnected";
-
-
         public const string CANDIDATE_LIST_SUCCESSFUL = "Candidate list loaded successfully";
         public const string PERMUTATION_GEN_SUCCESSFULLY = "Permuration generated successfully";
         
         public const string SL_CONNECTED_WITH_PERMUTATION = "Serial numbers connected with permutation";
-
         
         public const int NUMBER_OF_TOKENS = 4;
         public const string TOKENS_GENERATED_SUCCESSFULLY = "Tokens generated successfully";
-
         public const string SL_CONNECTED_WITH_TOKENS = "Serial numbers connected with tokens";
         public static string SL_TOKENS = "SL_TOKENS";
         public const string SL_RECEIVED_SUCCESSFULLY = "SL_RECEIVED_SUCCESSFULLY";
-
         public const string PROXY = "PROXY";
-
         public const string CANDIDATE_LIST_RESPONSE = "CANDIDATE_LIST_RESPONSE";
         
         public const string BLIND_PROXY_BALLOT_RECEIVED = "Blind ballot received from voter with ID: ";
         public const string SIGNED_PROXY_BALLOT = "SIGNED_PROXY_BALLOT";
         public const string SIGNED_BALLOT_MATRIX_SENT = "SIGNED_BALLOT_MATRIX_SENT";
-
         public const string UNBLINED_BALLOT_MATRIX_RECEIVED = "Unblined ballot matrix received from Proxy.";
-
         public const string BIT_COMMITMENT_OK = "Checking bit commitment correct";
         public const string BIT_COMMITMENT_FAIL = "Checking bit commitment incorrect";
-
         public const string UNABLE_TO_STOP_VOTING = "UNABLE_TO_STOP_VOTING";
-
         public const string VOTIGN_STOPPED = "Votign stopped successfully";
         */
     }

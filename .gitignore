@@ -1,0 +1,10 @@
+ElectionAuthority/.vs/*
+ElectionAuthority/ElectionAuthority/obj/
+Proxy/.vs/
+Proxy/Proxy/obj/
+Voter/.vs/
+Voter/Voter/obj/
+Voter/Voter/packages.config
+Voter/Voter/bin
+Voter/packages/
+Proxy/Proxy/bin/

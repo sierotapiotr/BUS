@@ -9,7 +9,7 @@ namespace Voter
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Punkt startowy dla aplikacji
         /// </summary>
         [STAThread]
         static void Main()
