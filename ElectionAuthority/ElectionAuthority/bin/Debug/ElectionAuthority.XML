@@ -1,0 +1,737 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ElectionAuthority</name>
+    </assembly>
+    <members>
+        <member name="T:ElectionAuthority.Auditor">
+            <summary>
+            class is used to verify if EA did not cheat
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Auditor.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Auditor.commitedPermutation">
+             <summary>
+             Big Integer array of commited permutation recieved from EA
+            
+             </summary>
+        </member>
+        <member name="P:ElectionAuthority.Auditor.CommitedPermatation">
+            <summary>
+            set and get commited permutation
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Auditor.#ctor(ElectionAuthority.Logs)">
+            <summary>
+            Auditor's constructor
+            </summary>
+            <param name="logs">transfered log instance </param>
+        </member>
+        <member name="M:ElectionAuthority.Auditor.checkPermutation(Org.BouncyCastle.Crypto.Parameters.RsaKeyParameters,Org.BouncyCastle.Crypto.Parameters.RsaKeyParameters,Org.BouncyCastle.Math.BigInteger[])">
+            <summary>
+            checking the correctness of permutation
+            </summary>
+            <param name="privateKey">private key used for bit commitment</param>
+            <param name="publicKey">public key used for bit commitment</param>
+            <param name="explicitPermutation">used permutation (as open text)</param>
+            <returns></returns>
+        </member>
+        <member name="T:ElectionAuthority.Ballot">
+            <summary>
+            class represents one ballot and has information about it
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.sl">
+            <summary>
+            SL number - BigInteger for voter which let bind permutation, tokens and apropiate candidate list 
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.tokenList">
+            <summary>
+            tokens used for blind signature - it's public key's modulus
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.exponentsList">
+            <summary>
+            exponents (for blind signature) - public key's exponent
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.signatureFactor">
+            <summary>
+            every ballot has its own signature factor (such as tokens) - private key's exponent
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.signedColumn">
+            <summary>
+            signed column (EA signature)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.blindColumn">
+            <summary>
+            blind colmun recived from proxy
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.unblindedBallot">
+            <summary>
+            unblinded ballot, next step in blind signature
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.permutation">
+            <summary>
+            permutation connected to ballot (so SL too)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Ballot.inversePermutation">
+            <summary>
+            inverse permutation for each ballot
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Ballot.#ctor(Org.BouncyCastle.Math.BigInteger)">
+            <summary>
+            ballot's constructor
+            </summary>
+            <param name="SL">serial (list of candidate) number</param>
+        </member>
+        <member name="M:ElectionAuthority.Ballot.signColumn">
+            <summary>
+            Method to sing each column in ballotMatrix
+            </summary>
+        </member>
+        <member name="T:ElectionAuthority.CandidateList">
+            <summary>
+            class loads candidate list from txt file
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.CandidateList.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.CandidateList.#ctor(ElectionAuthority.Logs)">
+            <summary>
+            condidate list constructor
+            </summary>
+            <param name="logs">logs instance</param>
+        </member>
+        <member name="M:ElectionAuthority.CandidateList.loadCanidateList(System.String)">
+            <summary>
+            loading cadidate list
+            </summary>
+            <param name="path">path to txt file</param>
+            <returns>List of strings with candidates</returns>
+        </member>
+        <member name="M:ElectionAuthority.CandidateList.getPathToCandidateList(System.String)">
+            <summary>
+            gets path to txt file with candidates list
+            </summary>
+            <param name="path">path to txt file</param>
+            <returns>path to file</returns>
+        </member>
+        <member name="T:ElectionAuthority.Configuration">
+            <summary>
+            loading config from txt file
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Configuration.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Configuration.electionAuthorityID">
+            <summary>
+            Election Authority ID 
+            </summary>
+        </member>
+        <member name="T:ElectionAuthority.Constants">
+            <summary>
+            Constants used in project
+            </summary>
+        </member>
+        <member name="T:ElectionAuthority.ElectionAuthority">
+            <summary>
+            Election authority class - responsible for generating serial numbers(SL, SR and numbers connected to them) and counting votes;
+            main class in e-voting project
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.encoder">
+            <summary>
+            encoder used in network protocol
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.form">
+            <summary>
+            Application form
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.serverClient">
+            <summary>
+            server for clients (voters)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.serverProxy">
+            <summary>
+            server for proxy
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.candidateList">
+            <summary>
+            cadidate list
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.candidateDefaultList">
+            <summary>
+            default candidate list (one for voting)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.configuration">
+            <summary>
+            Configuration from file
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.permutation">
+            <summary>
+            permutation PI
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.permutationsList">
+            <summary>
+            List of permutation
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.inversePermutationList">
+            <summary>
+            List of inverse permutation
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.serialNumberList">
+            <summary>
+            serial numbers SL (for voters)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.tokensList">
+            <summary>
+            tokens, one SL has four tokens, for (un)blinding (proxy and EA)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.exponentsList">
+            <summary>
+            for blinding (proxy)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.signatureFactor">
+            <summary>
+            for signature (EA)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.dictionarySLPermuation">
+            <summary>
+            map which connect serialNumber and permuataion
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.dictionarySLInversePermutation">
+            <summary>
+            map which connect serialNumber and inverse permuataion
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.dictionarySLTokens">
+            <summary>
+            map which connect serialNumber and tokens
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.ballots">
+            <summary>
+            EA reprezentation of every Voter ballot
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.numberOfVoters">
+            <summary>
+            Quantity of voters
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.finalResults">
+            <summary>
+            final results of voting
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.auditor">
+            <summary>
+            check if voting process runs with all 
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.privKey">
+            <summary>
+            priv Key to bit commitment of permutation
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.pubKey">
+            <summary>
+            pub key to bit commitment of permutation
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.permutationTokensList">
+            <summary>
+            Tokens (for blind signature scheme)
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.ElectionAuthority.permutationExponentsList">
+            <summary>
+            Exponent (for blind signature scheme)
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.#ctor(ElectionAuthority.Logs,ElectionAuthority.Configuration,ElectionAuthority.Form1)">
+            <summary>
+            Constructor of EA
+            </summary>
+            <param name="logs">logs instance</param>
+            <param name="configuration">configuration loaded</param>
+            <param name="form">application form</param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.loadCandidateList(System.String)">
+            <summary>
+            loading cadidate list from file
+            </summary>
+            <param name="pathToElectionAuthorityConfig">path to EA configuration file</param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generatePermutation">
+            <summary>
+            generates permutation for all voters
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generatePermutationTokens">
+            <summary>
+            generates tokens for all voters (every SL numbers)
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generateInversePermutation">
+            <summary>
+            Inverse every permutation
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.connectSerialNumberAndInversePermutation">
+            <summary>
+            conneceting serial numbers and inverse permutation 
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generateSerialNumber">
+            <summary>
+            generates serial numbers (SL)
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generateTokens">
+            <summary>
+            generates tokens
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.connectSerialNumberAndPermutation">
+            <summary>
+            connects serial numbers and permutation
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.connectSerialNumberAndTokens">
+            <summary>
+            connects serial number and tokens
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.generateDate">
+            <summary>
+            generates data for voting (serial numbers, tokens, permutations)
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.sendSLAndTokensToProxy">
+            <summary>
+            Sends SL and Tokens to proxy
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.disableSendSLTokensAndTokensButton">
+            <summary>
+            disable button causes sending tokens an SLs
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.getCandidateListPermuated(System.String,Org.BouncyCastle.Math.BigInteger)">
+            <summary>
+            permutes candidate list for concrete voter and for his/her SL number
+            </summary>
+            <param name="name"></param>
+            <param name="SL"></param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.saveBlindBallotMatrix(System.String)">
+            <summary>
+            saves blind ballot matrix recived from proxy
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.signColumn(System.String)">
+            <summary>
+            Signs columns (EA signature)
+            </summary>
+            <param name="name">Voter name</param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.saveUnblindedBallotMatrix(System.String)">
+            <summary>
+            saves unblinded ballot matrix (vote)
+            </summary>
+            <param name="message">string message recived from proxy</param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.disbaleProxy">
+            <summary>
+            disables proxy 
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.countVotes">
+            <summary>
+            counting votes EA send to voter unblinded permutation (and then private key) so Audiotr
+                   can check RSA formula
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.announceResultsOfElection">
+            <summary>
+            announce results of election
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.checkVote(System.Int32)">
+            <summary>
+            count vote from one voter
+            </summary>
+            <param name="voterNumber">voter number in voters array</param>
+            <returns>vote for candidate</returns>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.initializeFinalResults">
+            <summary>
+            initialize finale results
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.blindPermutation(System.Collections.Generic.List{System.Collections.Generic.List{Org.BouncyCastle.Math.BigInteger}})">
+            <summary>
+            blinds permutations (all of them), RSA formula (bit commitment)
+            </summary>
+            <param name="permutationList">permutation list</param>
+        </member>
+        <member name="M:ElectionAuthority.ElectionAuthority.unblindPermutation(System.Collections.Generic.List{System.Collections.Generic.List{Org.BouncyCastle.Math.BigInteger}})">
+            <summary>
+            unblind permutation, checking permutations RSA (auditor checks all of the permutations)
+            </summary>
+            <param name="permutationList">permutation list</param>
+        </member>
+        <member name="T:ElectionAuthority.Extentions">
+            <summary>
+            additional function for our program
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Extentions.Shuffle``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            shuffling lists (used ie. for generation SL)
+            </summary>
+            <typeparam name="T">type of list</typeparam>
+            <param name="list">list which is going to be shuffled</param>
+        </member>
+        <member name="T:ElectionAuthority.Form1">
+            <summary>
+            Class which shows a GUI
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Form1.logs">
+            <summary>
+            display logs in logs console
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Form1.configuration">
+            <summary>
+            load configuration from configuration xml file
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Form1.electionAuthority">
+            <summary>
+            main logic of Election Authority application 
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.#ctor">
+            <summary>
+            constructor which creates Graphical User interface
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.startElectionAuthorityButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            starts Election Authority 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.configButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            open window to load configuration file
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.openFileDialog1_FileOk(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            accept chosen configuration file 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.enableButtonAfterConfiguration">
+            <summary>
+            enable buttons after loading configuration 
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.Form1_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)">
+            <summary>
+            actions done when form is closed
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.setColumnWidth">
+            <summary>
+            set width of column in log console
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.button1_Click(System.Object,System.EventArgs)">
+            <summary>
+            sends SL and tokens lists to Proxy
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.disableSendSLTokensAndTokensButton">
+            <summary>
+            disable sendSLAndTokensButton and enable finishVoting button
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.finishVotingButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            finish voting process
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.countVotesButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            coutns votes after voting 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:ElectionAuthority.Form1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Form1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ElectionAuthority.Form1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ElectionAuthority.Logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Logs.logsListView">
+            <summary>
+            Log list view
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Logs.#ctor(System.Windows.Forms.ListView)">
+            <summary>
+            Logs instance's constructor
+            </summary>
+            <param name="logsListView">logs list view</param>
+        </member>
+        <member name="M:ElectionAuthority.Logs.addLog(System.String,System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            adds log
+            </summary>
+            <param name="log">log message</param>
+            <param name="time">if print time</param>
+            <param name="flag">type of message (error, info...)</param>
+            <param name="anotherThread">thread flag</param>
+        </member>
+        <member name="T:ElectionAuthority.Parser">
+            <summary>
+            parsing messages recived form clients
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Parser.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Parser.electionAuthority">
+            <summary>
+            parser connected to election authority
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Parser.#ctor(ElectionAuthority.Logs,ElectionAuthority.ElectionAuthority)">
+            <summary>
+            parser's constructor
+            </summary>
+            <param name="logs">log instance</param>
+            <param name="electionAuthority">election authority instance</param>
+        </member>
+        <member name="M:ElectionAuthority.Parser.parseMessage(System.String)">
+            <summary>
+            parses message
+            </summary>
+            <param name="msg">recived message</param>
+            <returns>parsing result</returns>
+        </member>
+        <member name="T:ElectionAuthority.Permutation">
+            <summary>
+            represents all permutation's method
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Permutation.logs">
+            <summary>
+            allows to collect and display logs
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Permutation.#ctor(ElectionAuthority.Logs)">
+            <summary>
+            constructor
+            </summary>
+            <param name="logs">logs instance</param>
+        </member>
+        <member name="M:ElectionAuthority.Permutation.generatePermutation(System.Int32)">
+            <summary>
+            generate ONE permutation
+            </summary>
+            <param name="candidateQuantity">quantity of candidates</param>
+            <returns></returns>
+        </member>
+        <member name="M:ElectionAuthority.Permutation.generatePermutationMatrix(System.Collections.Generic.List{Org.BouncyCastle.Math.BigInteger})">
+            <summary>
+            Generate permutation martix, using hamming posistion to represent one integer
+            </summary>
+            <param name="permutation">permutation</param>
+            <returns></returns>
+        </member>
+        <member name="M:ElectionAuthority.Permutation.transposeMatrix(System.Int32[0:,0:])">
+            <summary>
+            transpose matrix 
+            </summary>
+            <param name="m">permutation matrix</param>
+            <returns>transpone permutation matrix</returns>
+        </member>
+        <member name="M:ElectionAuthority.Permutation.getInversePermutation(System.Collections.Generic.List{Org.BouncyCastle.Math.BigInteger})">
+            <summary>
+            Find inverse permuatation using a table method
+            </summary>
+            <param name="permutation">permutation to inverse</param>
+            <returns>inverse permutation</returns>
+        </member>
+        <member name="M:ElectionAuthority.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:ElectionAuthority.SerialNumberGenerator">
+            <summary>
+            Generates serial numbers used in EA
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.SerialNumberGenerator.generateListOfSerialNumber(System.Int32,System.Int32)">
+            <summary>
+            generate SL for election
+            </summary>
+            <param name="numberOfSerials">number of serials to generate</param>
+            <param name="numberOfBits">bit size of serial</param>
+            <returns>list of serial numbers</returns>
+        </member>
+        <member name="M:ElectionAuthority.SerialNumberGenerator.generatePreTokens(System.Int32,System.Int32)">
+            <summary>
+            generate pre tokens (key pair) for election
+            </summary>
+            <param name="numberOfSerials">number of serials to generate</param>
+            <param name="numberOfBits">bit size of serial</param>
+            <returns>list of pre tokens</returns>
+        </member>
+        <member name="F:ElectionAuthority.Server.logs">
+            <summary>
+            allows to collect and display logs - information in console
+            </summary>
+        </member>
+        <member name="F:ElectionAuthority.Server.parser">
+            <summary>
+            allows to parse received messages
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Server.#ctor(ElectionAuthority.Logs,ElectionAuthority.ElectionAuthority)">
+            <summary>
+            server which allows to communicate with other processes 
+            </summary>
+            <param name="logs">allows to collect and display logs - information in console</param>
+            <param name="electionAuthority">represents class where is main logic of application</param>
+        </member>
+        <member name="M:ElectionAuthority.Server.startServer(System.String)">
+            <summary>
+            allow to start server
+            </summary>
+            <param name="port">number of port on which server is running, this information comes from configuration xml file</param>
+            <returns>returns true when server started successfully</returns>
+        </member>
+        <member name="M:ElectionAuthority.Server.ListenForClients">
+            <summary>
+            listen for comming clients, when request comes it is connected with server (another thread is started)
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Server.displayMessageReceived(System.Object)">
+            <summary>
+            displays received message from client 
+            </summary>
+            <param name="client">name of client, each client has it own name which is loaded from config file</param>
+        </member>
+        <member name="M:ElectionAuthority.Server.stopServer">
+            <summary>
+            stops server
+            </summary>
+        </member>
+        <member name="M:ElectionAuthority.Server.sendMessage(System.String,System.String)">
+            <summary>
+            sends message to client 
+            </summary>
+            <param name="name">name of client which we want to send a message</param>
+            <param name="msg">message which we want to send</param>
+        </member>
+        <member name="M:ElectionAuthority.Server.updateClientName(System.Net.Sockets.TcpClient,System.String)">
+            <summary>
+            updates a client name
+            </summary>
+            <param name="client">tcp socket which client is connected to</param>
+            <param name="signal">client's name</param>
+        </member>
+        <member name="T:ElectionAuthority.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ElectionAuthority.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ElectionAuthority.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

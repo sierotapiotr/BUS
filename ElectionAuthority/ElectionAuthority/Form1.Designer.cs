@@ -1,5 +1,6 @@
 ﻿namespace ElectionAuthority
 {
+
     partial class Form1
     {
         /// <summary>
@@ -29,120 +30,122 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.loadConfigButton = new System.Windows.Forms.Button();
-            this.startButton = new System.Windows.Forms.Button();
-            this.proxyButton = new System.Windows.Forms.Button();
-            this.endButton = new System.Windows.Forms.Button();
-            this.countButton = new System.Windows.Forms.Button();
-            this.titleLabel = new System.Windows.Forms.Label();
-            this.logLabel = new System.Windows.Forms.Label();
-            this.confOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.logListView = new System.Windows.Forms.ListView();
-            this.loadCandidatesButton = new System.Windows.Forms.Button();
-            this.candOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.startElectionAuthorityButton = new System.Windows.Forms.Button();
+            this.logsListView = new System.Windows.Forms.ListView();
+            this.logColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.configButton = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.sendSLTokensAndTokensButton = new System.Windows.Forms.Button();
+            this.finishVotingButton = new System.Windows.Forms.Button();
+            this.countVotesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // loadConfigButton
+            // startElectionAuthorityButton
             // 
-            resources.ApplyResources(this.loadConfigButton, "loadConfigButton");
-            this.loadConfigButton.Name = "loadConfigButton";
-            this.loadConfigButton.UseVisualStyleBackColor = true;
-            this.loadConfigButton.Click += new System.EventHandler(this.loadConfigButton_Click);
+            this.startElectionAuthorityButton.Enabled = false;
+            this.startElectionAuthorityButton.Location = new System.Drawing.Point(12, 211);
+            this.startElectionAuthorityButton.Name = "startElectionAuthorityButton";
+            this.startElectionAuthorityButton.Size = new System.Drawing.Size(123, 35);
+            this.startElectionAuthorityButton.TabIndex = 0;
+            this.startElectionAuthorityButton.Text = "Start ElectionAuthority";
+            this.startElectionAuthorityButton.UseVisualStyleBackColor = true;
+            this.startElectionAuthorityButton.Click += new System.EventHandler(this.startElectionAuthorityButton_Click);
             // 
-            // startButton
+            // logsListView
             // 
-            resources.ApplyResources(this.startButton, "startButton");
-            this.startButton.Name = "startButton";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.logsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.logColumn});
+            this.logsListView.FullRowSelect = true;
+            this.logsListView.Location = new System.Drawing.Point(13, 12);
+            this.logsListView.Name = "logsListView";
+            this.logsListView.Size = new System.Drawing.Size(740, 143);
+            this.logsListView.TabIndex = 1;
+            this.logsListView.UseCompatibleStateImageBehavior = false;
+            this.logsListView.View = System.Windows.Forms.View.Details;
             // 
-            // proxyButton
+            // logColumn
             // 
-            resources.ApplyResources(this.proxyButton, "proxyButton");
-            this.proxyButton.Name = "proxyButton";
-            this.proxyButton.UseVisualStyleBackColor = true;
-            this.proxyButton.Click += new System.EventHandler(this.proxyButton_Click);
+            this.logColumn.Text = "Logs";
+            this.logColumn.Width = 734;
             // 
-            // endButton
+            // configButton
             // 
-            resources.ApplyResources(this.endButton, "endButton");
-            this.endButton.Name = "endButton";
-            this.endButton.UseVisualStyleBackColor = true;
-            this.endButton.Click += new System.EventHandler(this.endButton_Click);
+            this.configButton.Location = new System.Drawing.Point(13, 170);
+            this.configButton.Name = "configButton";
+            this.configButton.Size = new System.Drawing.Size(122, 35);
+            this.configButton.TabIndex = 2;
+            this.configButton.Text = "Load Configuration";
+            this.configButton.UseVisualStyleBackColor = true;
+            this.configButton.Click += new System.EventHandler(this.configButton_Click);
             // 
-            // countButton
+            // openFileDialog
             // 
-            resources.ApplyResources(this.countButton, "countButton");
-            this.countButton.Name = "countButton";
-            this.countButton.UseVisualStyleBackColor = true;
-            this.countButton.Click += new System.EventHandler(this.countButton_Click);
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // titleLabel
+            // sendSLTokensAndTokensButton
             // 
-            resources.ApplyResources(this.titleLabel, "titleLabel");
-            this.titleLabel.Name = "titleLabel";
+            this.sendSLTokensAndTokensButton.Enabled = false;
+            this.sendSLTokensAndTokensButton.Location = new System.Drawing.Point(13, 252);
+            this.sendSLTokensAndTokensButton.Name = "sendSLTokensAndTokensButton";
+            this.sendSLTokensAndTokensButton.Size = new System.Drawing.Size(122, 35);
+            this.sendSLTokensAndTokensButton.TabIndex = 3;
+            this.sendSLTokensAndTokensButton.Text = "Send SL and tokens to PROXY";
+            this.sendSLTokensAndTokensButton.UseVisualStyleBackColor = true;
+            this.sendSLTokensAndTokensButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // logLabel
+            // finishVotingButton
             // 
-            resources.ApplyResources(this.logLabel, "logLabel");
-            this.logLabel.Name = "logLabel";
+            this.finishVotingButton.Enabled = false;
+            this.finishVotingButton.Location = new System.Drawing.Point(13, 294);
+            this.finishVotingButton.Name = "finishVotingButton";
+            this.finishVotingButton.Size = new System.Drawing.Size(122, 35);
+            this.finishVotingButton.TabIndex = 4;
+            this.finishVotingButton.Text = "Finish voting";
+            this.finishVotingButton.UseVisualStyleBackColor = true;
+            this.finishVotingButton.Click += new System.EventHandler(this.finishVotingButton_Click);
             // 
-            // confOpenFileDialog
+            // countVotesButton
             // 
-            this.confOpenFileDialog.FileName = "openFileDialog1";
-            this.confOpenFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.confOpenFileDialog_FileOk);
-            // 
-            // logListView
-            // 
-            resources.ApplyResources(this.logListView, "logListView");
-            this.logListView.Name = "logListView";
-            this.logListView.UseCompatibleStateImageBehavior = false;
-            this.logListView.View = System.Windows.Forms.View.List;
-            // 
-            // loadCandidatesButton
-            // 
-            resources.ApplyResources(this.loadCandidatesButton, "loadCandidatesButton");
-            this.loadCandidatesButton.Name = "loadCandidatesButton";
-            this.loadCandidatesButton.UseVisualStyleBackColor = true;
-            this.loadCandidatesButton.Click += new System.EventHandler(this.loadCandidatesButton_Click);
-            // 
-            // candOpenFileDialog
-            // 
-            this.candOpenFileDialog.FileName = "openFileDialog1";
-            this.candOpenFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.candOpenFileDialog_FileOk);
+            this.countVotesButton.Enabled = false;
+            this.countVotesButton.Location = new System.Drawing.Point(13, 336);
+            this.countVotesButton.Name = "countVotesButton";
+            this.countVotesButton.Size = new System.Drawing.Size(122, 35);
+            this.countVotesButton.TabIndex = 5;
+            this.countVotesButton.Text = "Count votes";
+            this.countVotesButton.UseVisualStyleBackColor = true;
+            this.countVotesButton.Click += new System.EventHandler(this.countVotesButton_Click);
             // 
             // Form1
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.loadCandidatesButton);
-            this.Controls.Add(this.logListView);
-            this.Controls.Add(this.logLabel);
-            this.Controls.Add(this.titleLabel);
-            this.Controls.Add(this.countButton);
-            this.Controls.Add(this.endButton);
-            this.Controls.Add(this.proxyButton);
-            this.Controls.Add(this.startButton);
-            this.Controls.Add(this.loadConfigButton);
+            this.ClientSize = new System.Drawing.Size(765, 409);
+            this.Controls.Add(this.countVotesButton);
+            this.Controls.Add(this.finishVotingButton);
+            this.Controls.Add(this.sendSLTokensAndTokensButton);
+            this.Controls.Add(this.configButton);
+            this.Controls.Add(this.logsListView);
+            this.Controls.Add(this.startElectionAuthorityButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.Text = "Election Authority";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button loadConfigButton;
-        private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.Button proxyButton;
-        private System.Windows.Forms.Button endButton;
-        private System.Windows.Forms.Button countButton;
-        private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.Label logLabel;
-        private System.Windows.Forms.OpenFileDialog confOpenFileDialog;
-        private System.Windows.Forms.ListView logListView;
-        private System.Windows.Forms.Button loadCandidatesButton;
-        private System.Windows.Forms.OpenFileDialog candOpenFileDialog;
+        private System.Windows.Forms.Button startElectionAuthorityButton;
+        private System.Windows.Forms.ListView logsListView;
+        private System.Windows.Forms.Button configButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.ColumnHeader logColumn;
+        private System.Windows.Forms.Button sendSLTokensAndTokensButton;
+        private System.Windows.Forms.Button finishVotingButton;
+        private System.Windows.Forms.Button countVotesButton;
     }
 }
 

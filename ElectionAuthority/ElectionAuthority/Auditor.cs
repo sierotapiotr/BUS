@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
@@ -19,7 +18,7 @@ namespace ElectionAuthority
         /// <summary>
         /// allows to collect and display logs
         /// </summary>
-        private Logger logs;
+        private Logs logs;
 
         /// <summary>
         /// Big Integer array of commited permutation recieved from EA
@@ -40,7 +39,7 @@ namespace ElectionAuthority
         /// Auditor's constructor
         /// </summary>
         /// <param name="logs">transfered log instance </param>
-        public Auditor(Logger logs)
+        public Auditor(Logs logs)
         {
             this.logs = logs;
 
@@ -55,7 +54,7 @@ namespace ElectionAuthority
         /// <returns></returns>
         public bool checkPermutation(RsaKeyParameters privateKey, RsaKeyParameters publicKey, BigInteger[] explicitPermutation)
         {
-            int i = 0;
+            int i=0;
             foreach (BigInteger partPermutation in explicitPermutation)
             {
 
@@ -65,10 +64,10 @@ namespace ElectionAuthority
                     return false;
                 }
                 i++;
-
+                
             }
 
             return true;
-        }
+        } 
     }
 }
