@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 using System.Security.Cryptography;
 
 namespace Proxy
 {
-
-    /// <summary>
-    /// extention functions in program, used to more complicated operations
-    /// </summary>
-    public static class Extentions
+    static class Shuffler
     {
         /// <summary>
-        /// shuffling list elements
+        /// Randomizacja listy algorytmem Fishera–Yatesa
         /// </summary>
-        /// <typeparam name="T">list to shuffle</typeparam>
-        /// <param name="list">shuffled list</param>
+        /// <typeparam name="T">typ listy</typeparam>
+        /// <param name="list">randomizowana lista</param>
         public static void Shuffle<T>(this IList<T> list)
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();

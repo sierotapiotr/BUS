@@ -14,7 +14,7 @@ namespace Voter
     class Client
     {
         /// <summary>
-        /// Enkoder do przekształcania wiadomości ASCII <--> UTF-8
+        /// Enkoder do przekształcania wiadomości ASCII - UTF-8
         /// </summary>
         private ASCIIEncoding encoder;
         /// <summary>
@@ -103,13 +103,13 @@ namespace Voter
                 tcpClientThread.Start();
                 SendName();
                 connected = true;
-                logs.addLog(Constants.CONNECTION_PASS + target, true, Constants.LOG_INFO, true);
+                logs.AddLog(Constants.CONNECTION_PASS + target, Logs.LogType.Info);
                 return true;
             }
             else
             {
                 tcpClient = null;
-                logs.addLog(Constants.CONNECTION_FAILED + target, true, Constants.LOG_ERROR, true);
+                logs.AddLog(Constants.CONNECTION_FAILED + target, Logs.LogType.Error);
                 return false;
             }
 
@@ -141,7 +141,7 @@ namespace Voter
                     break;
                 }
                 string msg = encoder.GetString(message, 0, bytesRead);
-                logs.addLog(msg, true, Constants.LOG_MESSAGE, true);
+                logs.AddLog(msg, Logs.LogType.Message);
                 this.parser.ParseMessage(msg);
             }
             if (tcpClient != null)
@@ -171,11 +171,11 @@ namespace Voter
 
                 if (!error)
                 {
-                    logs.addLog(Constants.CONNECTION_DISCONNECTED, true, Constants.LOG_INFO, true);
+                    logs.AddLog(Constants.CONNECTION_DISCONNECTED, Logs.LogType.Info);
                 }
                 else
                 {
-                    logs.addLog(Constants.CONNECTION_DISCONNECTED_ERROR, true, Constants.LOG_ERROR, true);
+                    logs.AddLog(Constants.CONNECTION_DISCONNECTED_ERROR, Logs.LogType.Info);
                 }
             }
         }

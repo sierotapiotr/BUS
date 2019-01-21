@@ -95,7 +95,7 @@ namespace Voter
             this.voter.VoterBallot.SR = SR;
             Console.WriteLine("SR = " + SR);
 
-            logs.addLog(Constants.SL_AND_SR_RECEIVED, true, Constants.LOG_INFO, true);
+            logs.AddLog(Constants.SL_AND_SR_RECEIVED, Logs.LogType.Info);
             this.voter.DisableSLAndSRButton();
         }
 

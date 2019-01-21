@@ -15,99 +15,114 @@ namespace Voter
     class Logs
     {
         /// <summary>
-        /// Lista z logami
+        /// Używany dziennik logów
         /// </summary>
-        private ListView logsListView;
+        private ListView logListView;
 
+        /// <summary>
+        /// Nazwa (identyfikator) Votera
+        /// </summary>
         private string voterName;
-
         public string VoterName
         {
             set { voterName = value; }
             get { return voterName; }
         }
 
-
         /// <summary>
-        /// Konstruktow klasy Logs
+        /// Konstruktor klasy Logger
         /// </summary>
-        /// <param name="logsListView">lista wyświetlająca logi</param>
-        public Logs(ListView logsListView)
+        /// <param name="logger"> dziennik logów (listView)</param>
+        public Logs(ListView logger)
         {
-            this.logsListView = logsListView;
+            this.logListView = logger;
             this.voterName = "Voter";
         }
 
+        /// <summary>
+        /// Delegat na potrzeby dodawania logów (AddLog)
+        /// </summary>
+        /// <param name="log"></param>
+        /// <param name="type"></param>
+        /// <param name="time"></param>
+        private delegate void LogDelegate(string log, LogType type, bool time = true);
 
         /// <summary>
-        /// Metoda dodająca logi
+        /// Typy logów
         /// </summary>
-        /// <param name="log">treść wiadomości</param>
-        /// <param name="add_time">czas dodania</param>
-        /// <param name="flag">rodzaj wiadomości</param>
-        /// <param name="anotherThread">flaga dot. innego wątku</param>
-        public void addLog(string log, bool add_time, int flag, bool anotherThread = false)
+        public enum LogType { Info, Message, Error, Special };
+
+        /// <summary>
+        /// Dodawanie logów
+        /// </summary>
+        /// <param name="log">wiadomość/log</param>
+        /// <param name="type">rodzaj wiadomości</param>
+        /// <param name="time">podanie czasu</param>
+        public void AddLog(string log, LogType type, bool time = true)
         {
             ListViewItem item = new ListViewItem();
 
-            // WYBÓR KOLOR LINII LOGÓW
-            switch (flag)
+            switch (type)
             {
-                case 0:
-                    item.ForeColor = Color.Blue;
-                    break;
-                case 1:
+                case LogType.Info:
                     item.ForeColor = Color.Black;
                     break;
-                case 2:
+                case LogType.Message:
+                    item.ForeColor = Color.Blue;
+                    break;
+                case LogType.Error:
                     item.ForeColor = Color.Red;
                     break;
-                case 3:
-                    item.ForeColor = Color.Green;
+                case LogType.Special:
+                    item.ForeColor = Color.Gold;
                     break;
             }
-            
-            if (add_time)
-                item.Text = "[" + DateTime.Now.ToString("HH:mm:ss") + "]" + log;
+
+            if (time)
+            {
+                item.Text = "[" + DateTime.Now.ToString("HH:mm:ss") + "] " + log;
+            }
             else
+            {
                 item.Text = log;
-
-
-            if (!anotherThread)
-            {
-                logsListView.Items.Add(item);
-                logsListView.Items[logsListView.Items.Count - 1].EnsureVisible(); 
             }
-            else
+
+            if (logListView.InvokeRequired)
             {
-                try
-                {
-                    logsListView.Invoke(new MethodInvoker(delegate ()
-                    {
-                        logsListView.Items.Add(item);
-                        logsListView.Items[logsListView.Items.Count - 1].EnsureVisible();
-                    })
-                    );
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                logListView.Invoke(new LogDelegate(AddLog), new object[] { log, type, time });
+                return;
             }
+
+            logListView.Items.Add(item);
+            logListView.EnsureVisible(logListView.Items.Count - 1);
 
             try
             {
-                using (System.IO.StreamWriter file = new StreamWriter(@"Logs\" + voterName + ".txt", true))
+                using (System.IO.StreamWriter file = new StreamWriter(voterName + "-logs.txt", true))
                 {
-                    file.Write(" [" + DateTime.Now.ToString("HH:mm:ss") + "]" + log + Environment.NewLine);
-
+                    file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> " + log + Environment.NewLine);
                 }
             }
-            catch(Exception e)
+            catch (Exception exp)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("[File logger] >> " + exp);
             }
+        }
 
+        public void AddExpToFile(Exception ex)
+        {
+            string text = ex.ToString();
+            try
+            {
+                using (System.IO.StreamWriter file = new StreamWriter(voterName + "-logs.txt", true))
+                {
+                    file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> Wystąpił wyjątek: " + Environment.NewLine + text);
+                }
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine("[Exception logger] >> " + exp);
+            }
         }
     }
 }

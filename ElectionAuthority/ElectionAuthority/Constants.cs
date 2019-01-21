@@ -22,7 +22,7 @@ namespace ElectionAuthority
         public const string SERVER_PORT_FOR_VOTERS = "serverPortForVoters";
         public const string NUMBER_OF_VOTERS = "numberOfVoters";
 
-        // Teksty logów
+        //** Teksty logów
         public const string LOG_PROGRAM_START = "Uruchomiono program Election Authority";
         public const string LOG_CONFIG_FILE = "Wczytano konfigurację z pliku ";
         public const string LOG_CONFIG_FILE_ERROR = "Nie udało się wczytać konfiguracji z pliku ";
@@ -50,19 +50,19 @@ namespace ElectionAuthority
         public const string LOG_MULTI_WINNER = "Zwycięzcami głosowania są ex aequo: ";
 
 
-        // Teksty wiadomości wysyłanych w komunikacji TCP (server)
+        //** Teksty wiadomości wysyłanych w komunikacji TCP (server)
         public const string MSG_NEW_CLIENT = "ACCEPTED";
         public const string MSG_SL_TOKENS_FOR_PROXY = "SL_TOKENS";
         public const string MSG_PERMUTATED_LIST = "CANDIDATE_LIST_RESPONSE";
         public const string MSG_SIGNED_FOR_PROXY = "SIGNED_PROXY_BALLOT";
 
-        // Teksty wiadomości otrzymanych w komunikacji TCP
+        //** Teksty wiadomości otrzymanych w komunikacji TCP
         public const string RCV_SL_ACK = "SL_RECEIVED_SUCCESSFULLY";
         public const string RCV_GET_CANDIDATES = "GET_CANDIDATE_LIST";
         public const string RCV_BLIND_PROXY_BALLOT = "BLIND_PROXY_BALLOT";
         public const string RCV_UNBLINDED_BALLOT_MATRIX = "UNBLINED_BALLOT_MATRIX";
 
-        // Teksty logów Auditora
+        //** Teksty logów Auditora
         public const string AUDITOR_COMMITMENT_TRUE = "AUDITOR >> Test zobowiązania bitowego - SUKCES";
         public const string AUDITOR_COMMITMENT_FALSE = "AUDITOR >> Test zobowiązania bitowego - PORAŻKA";
     }

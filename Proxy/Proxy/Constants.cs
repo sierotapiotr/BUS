@@ -6,73 +6,60 @@ using System.Text;
 namespace Proxy
 {
     /// <summary>
-    /// Constants used in proxy
+    /// Teksty, wartości stałe
     /// </summary>
     class Constants
     {
+        //** stałe parametry
         public const int BALLOT_SIZE = 4;
+        public const string LOCALHOST = "localhost";
+        public const string UNKNOWN = "Unknown";
+        public const int NUM_OF_CANDIDATES = 5; // why not from Configuration file? --- to do
+        public const int NUMBER_OF_BITS_SR = 64;
 
-        public const int LOG_INFO = 0;
-        public const int LOG_MESSAGE = 1;
-        public const int LOG_ERROR = 2;
-
+        //** pola w pliku XML
         public const string ID = "ID";
         public const string PROXY_PORT = "proxyPort";
         public const string ELECTION_AUTHORITY_IP = "electionAuthorityIP";
         public const string ELECTION_AUTHORITY_PORT = "electionAuthorityPort";
         public const string NUMBER_OF_VOTERS = "numberOfVoters";
         public const string NUMBER_OF_CANDIDATES = "numberOfCandidates";
-        public const string CONFIGURATION_LOADED_FROM = "Configuration loaded from file: ";
-         
 
-        public const string LOCALHOST = "localhost";
-        public const string CONNECTION_PASS = "Proxy connected with Election Authority correctly";
-        public const string CONNECTION_FAILED = "Proxy could not connect to Election Authority";
-        public const string CONNECTION_DISCONNECTED = "Proxy disconnected from Election Authority";
-        public const string CONNECTION_DISCONNECTED_ERROR = "Error occured during disconnecting Proxy from Election Authority";
+        //** Teksty logów
+        public const string PROGRAM_START = "Uruchomiono program Proxy";
+        public const string CONFIGURATION_LOADED_FROM = "Wczytano konfigurację z pliku ";
+        public const string CONFIGURATION_ERROR = "Nie udało się wczytać konfiguracji z pliku ";
+        public const string CONNECTION_PASS = "Połączono z Election Authority";
+        public const string CONNECTION_FAILED = "Nie udało się połączyć z Election Authority";
+        public const string CONNECTION_DISCONNECTED = "Rozłączono z Election Authority";
+        public const string CONNECTION_DISCONNECTED_ERROR = "Błąd przy rozłączaniu z Election Authority";
+        public const string SERVER_STARTED_CORRECTLY = "Serwer działa poprawnie";
+        public const string SERVER_UNABLE_TO_START = "Serwer nie działa poprawnie!";
+        public const string DISCONNECTED_NODE = "Rozłączono Voter";
+        public const string SR_GEN_SUCCESSFULLY = "Wygenerowano numery SR";
+        public const string ERROR_SEND_SL_AND_SR = "Błąd przy wysyłaniu SL i SR do Votera - nie otrzymano SL od EA";
+        public const string VOTER_CONNECTED = "Podłączono nowy Voter";
+        public const string PROXY_CONNECTED_TO_EA = "Election Authority potwierdziło połączenie";
+        public const string SL_RECEIVED = "Otrzymano numer SL od Election Authority";
+        public const string YES_NO_POSITION_GEN_SUCCESSFULL = "Wygenerowano pozycje \"tak\" i \"nie\" na kartach do głosowania";
+        public const string VOTE_RECEIVED = "Otrzymano głos od ";
+        public const string BALLOT_MATRIX_GEN = "Wygenerowano \"ballot matrix\" dla ";
+        public const string SIGNED_COLUMNS_RECEIVED = "Otrzymano podpisane dane od Election Authority";
+        public const string WRONG_SIGNATURE = "Błąd przy sprawdzaniu podpisu!";
+        public const string ALL_COLUMNS_UNBLINDED_CORRECTLY = "Podpis prawidłowy";
+        public static string YES_NO_POSITION_SAVED_TO_FILE = "Pozycje \"tak\" i \"nie\" na kartach zapisane do \"yesNoPosition.txt\"";
 
-        public const string PATH_TO_CONFIG = @"Config\ElectionAuthority.xml";
-
-        public const string SERVER_STARTED_CORRECTLY = "Proxy started working correctly";
-        public const string SERVER_UNABLE_TO_START = "Proxy unable to start working";
-        public const string UNKNOWN = "Unknown";
-        public const string DISCONNECTED_NODE = "Someone has been disconnected";
-
-        public const string SR_GEN_SUCCESSFULLY = "Serial numers SR generated successfully";
-
-
-        public const int NUMBER_OF_BITS_SR = 64;
-        public const int NUM_OF_CANDIDATES = 5;
-        
-
-
-        public const string SL_TOKENS = "SL_TOKENS"; //used to recognize message from EA
-        public const string RECEIVED_FROM_EA ="Date received from EA";
-        public const string SR_CONNECTED_WITH_SL = "SR connected with serial numbers SL";
-
+        //** Teksty wiadomości wysyłanych w komunikacji TCP
+        public const string SL_TOKENS = "SL_TOKENS";
         public const string GET_SL_AND_SR = "GET_SL_AND_SR";
         public const string SL_AND_SR = "SL_AND_SR";
-        public const string ERROR_SEND_SL_AND_SR="Unable to send SL and SR, because they are not ready";
         public const string SL_RECEIVED_SUCCESSFULLY = "SL_RECEIVED_SUCCESSFULLY";
         public const string CONNECTION_SUCCESSFUL = "CONNECTION_SUCCESSFUL";
-        public const string VOTER_CONNECTED = "Voter connected successfully to Proxy";
         public const string CONNECTED = "CONNECTED";
-        public const string PROXY_CONNECTED_TO_EA= "Proxy connected successfully to EA";
-        public const string SL_RECEIVED = "Proxy received SL from EA";
-        public const string GET_YES_NO_POSITION = "GET_YES_NO_POSITION";
-        public const string YES_NO_POSITION_GEN_SUCCESSFULL= "Yes and No position generated successfully";
-        public const string YES_NO_POSITION = "YES_NO_POSITION";
         public const string VOTE = "VOTE";
-        public const string VOTE_RECEIVED = "Vote received from voter with ID: ";
-        public const string BALLOT_MATRIX_GEN = "Ballot matrix generated for voter with ID: ";
         public const string BLIND_PROXY_BALLOT = "BLIND_PROXY_BALLOT";
         public const string SIGNED_PROXY_BALLOT = "SIGNED_PROXY_BALLOT";
-        public const string SIGNED_COLUMNS_RECEIVED = "Signed columns received from EA and saved.";
         public const string SIGNED_COLUMNS_TOKEN = "SIGNED_COLUMNS_TOKEN";
-        public const string WRONG_SIGNATURE = "Wrong signature!";
-        public const string CORRECT_SIGNATURE = "Correct signature!";
-        public const string ALL_COLUMNS_UNBLINDED_CORRECTLY = "Correct signature! All columns unblinded correctly!";
         public const string UNBLINED_BALLOT_MATRIX = "UNBLINED_BALLOT_MATRIX";
-        public static string YES_NO_POSITION_SAVED_TO_FILE = @"YesNoPosition save to file Logs\yesNoPosition.txt";
     }
 }

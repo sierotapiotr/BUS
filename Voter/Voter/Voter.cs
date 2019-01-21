@@ -175,7 +175,7 @@ namespace Voter
             this.confirmation.SignedColumn = this.voterBallot.SignedBlindColumn;
             this.confirmation.Token = this.voterBallot.Token;
 
-            this.logs.addLog(Constants.SIGNED_COLUMNS_TOKEN_RECEIVED, true, Constants.LOG_INFO, true);
+            this.logs.AddLog(Constants.SIGNED_COLUMNS_TOKEN_RECEIVED, Logs.LogType.Info);
 
             this.confirmation.addConfirm(true);
         }

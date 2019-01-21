@@ -107,7 +107,6 @@ namespace Voter
 
             foreach (XmlNode xnode in xml.SelectNodes("//Voter[@ID]"))
             {
-                Console.Write("TEST TEST TEST");
                 string voterId = xnode.Attributes[Constants.ID].Value;
                 list.Add(voterId);
                 string electionAuthorityIP = xnode.Attributes[Constants.ELECTION_AUTHORITY_IP].Value;
@@ -151,7 +150,7 @@ namespace Voter
                 this.logs.VoterName = name;
 
                 string[] filePath = path.Split('\\');
-                logs.addLog(Constants.CONFIGURATION_LOADED_FROM + filePath[filePath.Length - 1], true, Constants.LOG_INFO, true);
+                logs.AddLog(Constants.CONFIGURATION_LOADED_FROM + filePath[filePath.Length - 1], Logs.LogType.Info);
                 return true;
              }
             catch (Exception e)

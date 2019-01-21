@@ -32,3 +32,22 @@
  22:44:35 >>> Poprawnie wyłączono serwer
  22:44:35 >>> Poprawnie wyłączono serwer
  22:45:54 >>> Uruchomiono program Election Authority
+ 17:25:38 >>> Uruchomiono program Election Authority
+ 17:26:01 >>> Uruchomiono program Election Authority
+ 17:26:41 >>> Uruchomiono program Election Authority
+ 17:28:09 >>> Uruchomiono program Election Authority
+ 18:35:40 >>> Uruchomiono program Election Authority
+ 18:37:19 >>> Uruchomiono program Election Authority
+ 22:14:42 >>> Uruchomiono program Election Authority
+ 22:14:46 >>> Nie udało się wczytać konfiguracji z pliku B:\STUDIA\Programy\byVisual\BUS\Config\ElectionAuthority.xml
+ 22:14:46 >>> Wystąpił wyjątek: 
+System.NullReferenceException: Odwołanie do obiektu nie zostało ustawione na wystąpienie obiektu.
+   w ElectionAuthority.Config.ReadConfig(XmlDocument xml) w B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\Config.cs:wiersz 65
+   w ElectionAuthority.Config.LoadConfiguration(String path) w B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\Config.cs:wiersz 87 22:29:35 >>> Uruchomiono program Election Authority
+ 23:11:32 >>> Uruchomiono program Election Authority
+ 23:11:34 >>> Nie udało się wczytać konfiguracji z pliku B:\STUDIA\Programy\byVisual\BUS\Config\ElectionAuthority.xml
+ 23:11:34 >>> Wystąpił wyjątek: 
+System.NullReferenceException: Odwołanie do obiektu nie zostało ustawione na wystąpienie obiektu.
+   w ElectionAuthority.Config.ReadConfig(XmlDocument xml) w B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\Config.cs:wiersz 67
+   w ElectionAuthority.Config.LoadConfiguration(String path) w B:\STUDIA\Programy\byVisual\BUS\ElectionAuthority\ElectionAuthority\Config.cs:wiersz 87 23:12:30 >>> Uruchomiono program Election Authority
+ 23:12:33 >>> Wczytano konfigurację z pliku ElectionAuthority.xml

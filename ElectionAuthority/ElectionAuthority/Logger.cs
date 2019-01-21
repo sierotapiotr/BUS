@@ -25,7 +25,7 @@ namespace ElectionAuthority
         /// <summary>
         /// Konstruktor klasy Logger
         /// </summary>
-        /// <param name="logsListView"> dziennik logów (listView)</param>
+        /// <param name="logger"> dziennik logów (listView)</param>
         public Logger(ListView logger)
         {
             this.logListView = logger;
@@ -35,8 +35,8 @@ namespace ElectionAuthority
         /// Delegat na potrzeby dodawania logów (AddLog)
         /// </summary>
         /// <param name="log"></param>
-        /// <param name="time"></param>
         /// <param name="type"></param>
+        /// <param name="time"></param>
         private delegate void LogDelegate(string log, LogType type, bool time = true);
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace ElectionAuthority
         /// Dodawanie logów
         /// </summary>
         /// <param name="log">wiadomość/log</param>
-        /// <param name="time">if print time</param>
-        /// <param name="flag">rodzaj wiadomości</param>
+        /// <param name="type">rodzaj wiadomości</param>
+        /// <param name="time">podanie czasu</param>
         public void AddLog(string log, LogType type, bool time = true)
         {
             ListViewItem item = new ListViewItem();
@@ -96,7 +96,7 @@ namespace ElectionAuthority
 
             try
             {
-                using (System.IO.StreamWriter file = new StreamWriter(@"EA-.txt", true))
+                using (System.IO.StreamWriter file = new StreamWriter(@"EA-logs.txt", true))
                 {
                     file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> " + log + Environment.NewLine);
                 }

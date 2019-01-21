@@ -9,88 +9,107 @@ using System.IO;
 namespace Proxy
 {
     /// <summary>
-    /// displays and collects logs from proxy's actions
+    /// Wyświetla logi w polu dziennika logów
     /// </summary>
     class Logs
     {
         /// <summary>
-        /// log list view, to display logs
+        /// Używany dziennik logów
         /// </summary>
-        private ListView logsListView;
+        private ListView logListView;
 
         /// <summary>
-        /// constructor
+        /// Konstruktor klasy Logger
         /// </summary>
-        /// <param name="logsListView">list view for logs</param>
-        public Logs(ListView logsListView)
+        /// <param name="logger"> dziennik logów (listView)</param>
+        public Logs(ListView logger)
         {
-            this.logsListView = logsListView;
+            this.logListView = logger;
         }
 
         /// <summary>
-        /// adds log
+        /// Delegat na potrzeby dodawania logów (AddLog)
         /// </summary>
-        /// <param name="log">log message</param>
-        /// <param name="time">if print time</param>
-        /// <param name="flag">type of message (error, info...)</param>
-        /// <param name="anotherThread">thread flag</param>
-        public void addLog(string log, bool time, int flag, bool anotherThread = false)
+        /// <param name="log"></param>
+        /// <param name="time"></param>
+        /// <param name="type"></param>
+        private delegate void LogDelegate(string log, LogType type, bool time = true);
+
+        /// <summary>
+        /// Typy logów
+        /// </summary>
+        public enum LogType { Info, Message, Error, Result, Auditor, Special };
+
+        /// <summary>
+        /// Dodawanie logów
+        /// </summary>
+        /// <param name="log">wiadomość/log</param>
+        /// <param name="type">rodzaj wiadomości</param>
+        /// <param name="time">podanie czasu</param>
+        public void AddLog(string log, LogType type, bool time = true)
         {
             ListViewItem item = new ListViewItem();
-            switch (flag)
+
+            switch (type)
             {
-                case 0:
-                    item.ForeColor = Color.Blue;
-                    break;
-                case 1:
+                case LogType.Info:
                     item.ForeColor = Color.Black;
                     break;
-                case 2:
+                case LogType.Message:
+                    item.ForeColor = Color.Blue;
+                    break;
+                case LogType.Error:
                     item.ForeColor = Color.Red;
                     break;
-                case 3:
-                    item.ForeColor = Color.Green;
+                case LogType.Special:
+                    item.ForeColor = Color.Gold;
                     break;
             }
 
             if (time)
+            {
                 item.Text = "[" + DateTime.Now.ToString("HH:mm:ss") + "] " + log;
+            }
             else
+            {
                 item.Text = log;
-
-            if (!anotherThread)
-            {
-                logsListView.Items.Add(item);
-                logsListView.Items[logsListView.Items.Count - 1].EnsureVisible();
-            }
-            else
-            {
-                try
-                {
-                    logsListView.Invoke(new MethodInvoker(delegate()
-                    {
-                        logsListView.Items.Add(item);
-                        logsListView.Items[logsListView.Items.Count - 1].EnsureVisible();
-                    }));
-
-                }
-                catch (Exception exp)
-                {
-                    Console.WriteLine(exp);
-                }
             }
 
+            if (logListView.InvokeRequired)
+            {
+                logListView.Invoke(new LogDelegate(AddLog), new object[] { log, type, time });
+                return;
+            }
+
+            logListView.Items.Add(item);
+            logListView.EnsureVisible(logListView.Items.Count - 1);
 
             try
             {
-                using (System.IO.StreamWriter file = new StreamWriter(@"Logs\Proxy.txt", true))
+                using (System.IO.StreamWriter file = new StreamWriter(@"Proxy-logs.txt", true))
                 {
-                    file.Write("[" + DateTime.Now.ToString("HH:mm:ss") + "] " + log + Environment.NewLine);
+                    file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> " + log + Environment.NewLine);
                 }
             }
-            catch (Exception)
+            catch (Exception exp)
             {
-                Console.WriteLine("You should use bat file to save logs to file");
+                Console.WriteLine("[File logger] >> " + exp);
+            }
+        }
+
+        public void AddExpToFile(Exception ex)
+        {
+            string text = ex.ToString();
+            try
+            {
+                using (System.IO.StreamWriter file = new StreamWriter(@"Proxy-logs.txt", true))
+                {
+                    file.Write(" " + DateTime.Now.ToString("HH:mm:ss") + " >>> Wystąpił wyjątek: " + Environment.NewLine + text);
+                }
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine("[Exception logger] >> " + exp);
             }
         }
     }

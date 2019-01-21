@@ -10,19 +10,19 @@ namespace Voter
     {
         public const int BALLOTSIZE = 4;
 
-        // ZAPIS DO LOGÓW
+        //** STAŁE
         public const int LOG_INFO = 0;
         public const int LOG_MESSAGE = 1;
         public const int LOG_ERROR = 2;
 
-        // ŁĄCZENIE SIĘ APLIKACJI
+        //** ŁĄCZENIE SIĘ APLIKACJI
         public const string LOCALHOST = "localhost";
         public const string CONNECTION_PASS = "Nawiązano połączenie Votera z ";
         public const string CONNECTION_FAILED = "Nie udało się nawiązać połączenia Votera z ";
         public const string CONNECTION_DISCONNECTED = "Połączenie z EA zostało rozłączone.";
         public const string CONNECTION_DISCONNECTED_ERROR = "Próba nawiązania połączenia zakończona błędem";
 
-        // KONFIGURACJA
+        //** KONFIGURACJA
         public const string ID = "ID";
         public const string ELECTION_AUTHORITY = "Election Authority";
         public const string ELECTION_AUTHORITY_IP = "electionAuthorityIP";
@@ -34,7 +34,7 @@ namespace Voter
         public const string NUMBER_OF_CANDIDATES = "numberOfCandidates";
         public const string CONFIGURATION_LOADED_FROM = "Wczytano konfigurację z pliku: ";
 
-        // GŁOSOWANIE
+        //** GŁOSOWANIE
         public const string GET_CANDIDATE_LIST = "GET_CANDIDATE_LIST";
         public const string VOTE = "VOTE";
         public const string VOTE_DONE = "Głos oddany pomyślnie.";

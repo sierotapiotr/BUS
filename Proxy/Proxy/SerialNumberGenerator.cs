@@ -8,33 +8,33 @@ using Org.BouncyCastle.Math;
 namespace Proxy
 {
     /// <summary>
-    /// Generates serial numbers used in EA
+    /// Generator numerów seryjnych
     /// </summary>
     class SerialNumberGenerator
     {
         /// <summary>
-        /// instance sng (singleton)
+        /// Instancja sng (singleton)
         /// </summary>
-        private SerialNumberGenerator sng;
+        private SerialNumberGenerator sng = null;
 
         /// <summary>
-        /// list of serial numbers
+        /// Lista numerów seryjnych
         /// </summary>
         private List<BigInteger> listOfSerialNumbers;
 
         /// <summary>
-        /// counter of serials
+        /// Licznik numerów seryjnych
         /// </summary>
         int counter = 0;
 
         /// <summary>
-        /// singleton, private constructor
+        /// Prywatny konstruktor domyślny (singleton)
         /// </summary>
         private SerialNumberGenerator(){}
 
 
         /// <summary>
-        /// generate SL for election
+        /// Prywatny (singleton) konstruktor klasy SerialNumberGeneratorSerialNumberGenerator
         /// </summary>
         /// <param name="numberOfSerials">number of serials to generate</param>
         /// <param name="numberOfBits">bit size of serial</param>
@@ -61,14 +61,13 @@ namespace Proxy
 
             }
 
-            Extentions.Shuffle(listOfSerialNumbers);
+            Shuffler.Shuffle(listOfSerialNumbers);
         }
 
         /// <summary>
-        /// gettins sng instance
+        /// Funkcja zwracająca instancję SerialNumberGenerator (singleton)
         /// </summary>
-        /// <returns>sng instance</returns>
-        public SerialNumberGenerator getInstance()
+        public SerialNumberGenerator GetInstance()
         {
             if (sng == null)
             {
@@ -78,12 +77,11 @@ namespace Proxy
         }
 
         /// <summary>
-        /// generate next SR
+        /// Przekazanie nowego numeru SR
         /// </summary>
         /// <returns>SR</returns>
         public BigInteger getNextSr()
         {
-           
             BigInteger nextSr = listOfSerialNumbers[counter];
             counter++;
 
@@ -91,7 +89,7 @@ namespace Proxy
         }
 
         /// <summary>
-        /// generates list of serial numbers
+        /// Tworzenie nowych numeró seryjnych
         /// </summary>
         /// <param name="numberOfSerials">quantity of serial numbers</param>
         /// <param name="numberOfBits">bit length of serial number</param>
@@ -119,12 +117,12 @@ namespace Proxy
 
             }
 
-            Extentions.Shuffle(listOfSerialNumber);
+            Shuffler.Shuffle(listOfSerialNumber);
             return listOfSerialNumber;
         }
 
         /// <summary>
-        /// get yes/no position at ballot 
+        /// Przekazanie pozycji "tak" i "nie"
         /// </summary>
         /// <param name="numberOfVoters">quantity of voters</param>
         /// <param name="numberOfCandidates">quantity of candidates></param>
@@ -140,7 +138,7 @@ namespace Proxy
                 for (int i = 0; i < numberOfCandidates; i++)
                 {
                     int random = rnd.Next(0, range);
-                    if (i != numberOfCandidates - 1) // we use this if to create string looks like "number:number:number:number". 
+                    if (i != numberOfCandidates - 1) //string looks like "number:number:number:number". 
                                         //It will be easy to split
                         str = str + random.ToString() + ":";
                     else

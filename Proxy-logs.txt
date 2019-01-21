@@ -1,0 +1,86 @@
+ 23:08:38 >>> Wczytano konfigurację z pliku Proxy.xml
+ 23:10:24 >>> Serwer działa poprawnie
+ 23:10:24 >>> Wygenerowano numery SR
+ 23:10:24 >>> Wygenerowano pozycje "tak" i "nie" na kartach do głosowania
+ 23:10:24 >>> Pozycje "tak" i "nie" na kartach zapisane do "yesNoPosition.txt"
+ 23:11:18 >>> Uruchomiono program Proxy
+ 23:15:24 >>> Uruchomiono program Proxy
+ 23:15:57 >>> Wczytano konfigurację z pliku Proxy.xml
+ 23:15:58 >>> Serwer działa poprawnie
+ 23:15:59 >>> Wygenerowano numery SR
+ 23:15:59 >>> Wygenerowano pozycje "tak" i "nie" na kartach do głosowania
+ 23:15:59 >>> Pozycje "tak" i "nie" na kartach zapisane do "yesNoPosition.txt"
+ 23:16:13 >>> Połączono z Election Authority
+ 23:16:18 >>> Otrzymano numer SL od Election Authority
+ 23:16:52 >>> Podłączono nowy Voter
+ 23:17:10 >>> GET_SL_AND_SR&Voter0
+ 23:17:54 >>> Otrzymano głos od Voter0
+ 23:17:54 >>> Wygenerowano "ballot matrix" dla Voter0
+ 23:17:54 >>> VOTE&Voter0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;2
+ 23:17:54 >>> Otrzymano podpisane dane od Election Authority
+ 23:19:34 >>> Podłączono nowy Voter
+ 23:19:36 >>> GET_SL_AND_SR&Voter1
+ 23:20:03 >>> Otrzymano głos od Voter1
+ 23:20:03 >>> Wygenerowano "ballot matrix" dla Voter1
+ 23:20:03 >>> VOTE&Voter1;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;1
+ 23:20:03 >>> Otrzymano podpisane dane od Election Authority
+ 23:20:20 >>> Podłączono nowy Voter
+ 23:22:31 >>> Uruchomiono program Proxy
+ 23:22:56 >>> Wczytano konfigurację z pliku Proxy.xml
+ 23:22:57 >>> Serwer działa poprawnie
+ 23:22:57 >>> Wygenerowano numery SR
+ 23:22:57 >>> Wygenerowano pozycje "tak" i "nie" na kartach do głosowania
+ 23:22:57 >>> Pozycje "tak" i "nie" na kartach zapisane do "yesNoPosition.txt"
+ 23:22:58 >>> Połączono z Election Authority
+ 23:23:04 >>> Otrzymano numer SL od Election Authority
+ 23:23:19 >>> Podłączono nowy Voter
+ 23:23:21 >>> GET_SL_AND_SR&Voter0
+ 23:23:50 >>> Otrzymano głos od Voter0
+ 23:23:50 >>> Wygenerowano "ballot matrix" dla Voter0
+ 23:23:50 >>> VOTE&Voter0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;1
+ 23:23:50 >>> Otrzymano podpisane dane od Election Authority
+ 23:24:11 >>> Podłączono nowy Voter
+ 23:24:12 >>> GET_SL_AND_SR&Voter1
+ 23:25:07 >>> Otrzymano głos od Voter1
+ 23:25:07 >>> Wygenerowano "ballot matrix" dla Voter1
+ 23:25:07 >>> VOTE&Voter1;0:0:1:0;0:0:1:0;0:0:1:0;0:0:1:0;0:0:1:0;3
+ 23:25:07 >>> Otrzymano podpisane dane od Election Authority
+ 23:25:18 >>> Podłączono nowy Voter
+ 23:25:20 >>> GET_SL_AND_SR&Voter2
+ 23:25:36 >>> Otrzymano głos od Voter2
+ 23:25:36 >>> Wygenerowano "ballot matrix" dla Voter2
+ 23:25:36 >>> VOTE&Voter2;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;4
+ 23:25:36 >>> Otrzymano podpisane dane od Election Authority
+ 23:27:25 >>> Uruchomiono program Proxy
+ 23:27:43 >>> Wczytano konfigurację z pliku Proxy.xml
+ 23:27:46 >>> Serwer działa poprawnie
+ 23:27:46 >>> Wygenerowano numery SR
+ 23:27:46 >>> Wygenerowano pozycje "tak" i "nie" na kartach do głosowania
+ 23:27:46 >>> Pozycje "tak" i "nie" na kartach zapisane do "yesNoPosition.txt"
+ 23:27:48 >>> Połączono z Election Authority
+ 23:27:50 >>> Otrzymano numer SL od Election Authority
+ 23:28:13 >>> Podłączono nowy Voter
+ 23:28:14 >>> GET_SL_AND_SR&Voter0
+ 23:29:00 >>> Otrzymano głos od Voter0
+ 23:29:00 >>> Wygenerowano "ballot matrix" dla Voter0
+ 23:29:00 >>> VOTE&Voter0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;0:1:0:0;1
+ 23:29:00 >>> Otrzymano podpisane dane od Election Authority
+ 23:29:14 >>> Podłączono nowy Voter
+ 23:29:16 >>> GET_SL_AND_SR&Voter1
+ 23:29:32 >>> Otrzymano głos od Voter1
+ 23:29:32 >>> Wygenerowano "ballot matrix" dla Voter1
+ 23:29:32 >>> VOTE&Voter1;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;4
+ 23:29:32 >>> Otrzymano podpisane dane od Election Authority
+ 23:31:18 >>> Podłączono nowy Voter
+ 23:31:19 >>> GET_SL_AND_SR&Voter2
+ 23:31:33 >>> Otrzymano głos od Voter2
+ 23:31:33 >>> Wygenerowano "ballot matrix" dla Voter2
+ 23:31:33 >>> VOTE&Voter2;0:0:1:0;0:0:1:0;0:0:1:0;0:0:1:0;0:0:1:0;2
+ 23:31:33 >>> Otrzymano podpisane dane od Election Authority
+ 23:32:07 >>> Podłączono nowy Voter
+ 23:32:08 >>> GET_SL_AND_SR&Voter3
+ 23:32:27 >>> Otrzymano głos od Voter3
+ 23:32:27 >>> Wygenerowano "ballot matrix" dla Voter3
+ 23:32:27 >>> VOTE&Voter3;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;0:0:0:1;2
+ 23:32:27 >>> Otrzymano podpisane dane od Election Authority
+ 23:33:13 >>> Błąd przy rozłączaniu z Election Authority

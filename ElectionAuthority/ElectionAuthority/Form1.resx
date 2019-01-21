@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="loadConfigButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>370, 12</value>
+    <value>416, 46</value>
   </data>
   <data name="loadConfigButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 39</value>
@@ -210,7 +210,7 @@
     <value>3</value>
   </data>
   <data name="endButton.Text" xml:space="preserve">
-    <value>END</value>
+    <value>KONIEC</value>
   </data>
   <data name="&gt;&gt;endButton.Name" xml:space="preserve">
     <value>endButton</value>
@@ -255,13 +255,13 @@
     <value>True</value>
   </data>
   <data name="titleLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 16pt, style=Bold</value>
+    <value>Microsoft Sans Serif, 22pt, style=Bold</value>
   </data>
   <data name="titleLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 39</value>
+    <value>24, 26</value>
   </data>
   <data name="titleLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 31</value>
+    <value>326, 42</value>
   </data>
   <data name="titleLabel.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -285,13 +285,13 @@
     <value>True</value>
   </data>
   <data name="logLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
+    <value>Microsoft Sans Serif, 10pt, style=Bold</value>
   </data>
   <data name="logLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>27, 83</value>
   </data>
   <data name="logLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 20</value>
+    <value>136, 20</value>
   </data>
   <data name="logLabel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -314,12 +314,15 @@
   <metadata name="confOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="loadCandidatesButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="loadCandidatesButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="loadCandidatesButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>559, 12</value>
+    <value>605, 46</value>
   </data>
   <data name="loadCandidatesButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 39</value>

@@ -85,10 +85,10 @@ namespace Voter
             String[] words = clickedButton.Name.Split(';');
             if (this.voter.VoterBallot.Vote(Convert.ToInt32(words[1]), Convert.ToInt32(words[2])))
             {
-                logs.addLog(Constants.VOTE_DONE, true, Constants.LOG_INFO, true);
+                logs.AddLog(Constants.VOTE_DONE, Logs.LogType.Info);
                 if (this.voter.VoterBallot.VoteDone())
                 {
-                    logs.addLog(Constants.VOTE_FINISH, true, Constants.LOG_INFO, true);
+                    logs.AddLog(Constants.VOTE_FINISH, Logs.LogType.Info);
                     this.disableVoteButtons();
                     this.confirmationBox.Enabled = true;
 
@@ -97,7 +97,7 @@ namespace Voter
             }
             else
             {
-                logs.addLog(Constants.VOTE_ERROR, true, Constants.LOG_ERROR, true);
+                logs.AddLog(Constants.VOTE_ERROR, Logs.LogType.Error);
             }
 
             //Console.WriteLine(words[0] );

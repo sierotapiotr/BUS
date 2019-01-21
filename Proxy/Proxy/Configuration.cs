@@ -12,6 +12,9 @@ namespace Proxy
     /// </summary>
     class Configuration
     {
+        /// <summary>
+        /// Wyświetla logi w polu dziennika logów
+        /// </summary>
         private Logs logs;
 
         /// <summary>
@@ -24,12 +27,12 @@ namespace Proxy
         }
 
         /// <summary>
-        /// Proxy port
+        /// Port do komunikacji z Voterami
         /// </summary>
-        private string proxyPort;
-        public string ProxyPort
+        private string proxyPortForVoters;
+        public string ProxyPortForVoters
         {
-            get { return proxyPort; }
+            get { return proxyPortForVoters; }
         }
 
         /// <summary>
@@ -50,9 +53,8 @@ namespace Proxy
             get { return electionAuthorityPort; }
         }
 
-
         /// <summary>
-        /// number of voters for this proxy
+        /// Liczba Voterów
         /// </summary>
         private int numOfVoters;
         public int NumOfVoters
@@ -61,7 +63,7 @@ namespace Proxy
         }
 
         /// <summary>
-        /// number of candidates in election
+        /// Liczba kandydatów
         /// </summary>
         private int numOfCandidates;
         public int NumOfCandidates
@@ -70,20 +72,20 @@ namespace Proxy
         }
 
         /// <summary>
-        /// constructor
+        /// Konstruktor klasy Configuration
         /// </summary>
-        /// <param name="logs">log instance</param>
+        /// <param name="logs">dziennik logów</param>
         public Configuration(Logs logs)
         {
             this.logs = logs;
         }
 
         /// <summary>
-        /// reads config from xml configuration file
+        /// Funkcja pomocnicza do odczytania konfiguracji z pliku XML
         /// </summary>
-        /// <param name="xml">xml document</param>
-        /// <returns> list of string with config</returns>
-        private List<String> readConfig(XmlDocument xml)
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        private List<String> ReadConfig(XmlDocument xml)
         {
 
             List<String> list = new List<String>();
@@ -92,8 +94,8 @@ namespace Proxy
             {
                 string proxyId = xnode.Attributes[Constants.ID].Value;
                 list.Add(proxyId);
-                string proxyPort = xnode.Attributes[Constants.PROXY_PORT].Value;
-                list.Add(proxyPort);
+                string proxyPortForVoters = xnode.Attributes[Constants.PROXY_PORT].Value;
+                list.Add(proxyPortForVoters);
                 string electionAuthorityIP = xnode.Attributes[Constants.ELECTION_AUTHORITY_IP].Value;
                 list.Add(electionAuthorityIP);
                 string electionAuthorityPort = xnode.Attributes[Constants.ELECTION_AUTHORITY_PORT].Value;
@@ -109,37 +111,37 @@ namespace Proxy
         }
 
         /// <summary>
-        /// load configuration from path given by user
+        /// Załadowanie danych z pliku konfiguracyjnego XML
         /// </summary>
-        /// <param name="path">path to configuration</param>
-        /// <returns>loading end status</returns>
-        public bool loadConfiguration(string path)
+        /// <param name="path">ścieżka do pliku XML</param>
+        /// <returns></returns>
+        public bool LoadConfiguration(string path)
         {
             XmlDocument xml = new XmlDocument();
             try
             {
                 xml.Load(path);
                 List<String> conf = new List<String>();
-                conf = readConfig(xml);
+                conf = ReadConfig(xml);
 
                 this.proxyID = conf[0];
-                this.proxyPort = conf[1];
+                this.proxyPortForVoters = conf[1];
                 this.electionAuthorityIP = conf[2];
                 this.electionAuthorityPort = conf[3];
                 this.numOfVoters = Convert.ToInt32(conf[4]);
                 this.numOfCandidates = Convert.ToInt32(conf[5]);
 
                 string[] filePath = path.Split('\\');
-                logs.addLog(Constants.CONFIGURATION_LOADED_FROM + filePath[filePath.Length - 1], true, Constants.LOG_INFO);
+                logs.AddLog(Constants.CONFIGURATION_LOADED_FROM + filePath[filePath.Length - 1], Logs.LogType.Info);
                 return true;
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp);
+                logs.AddLog(Constants.CONFIGURATION_ERROR + path, Logs.LogType.Error);
+                logs.AddExpToFile(exp);
                 return false;
             }
-
-
         }
     }
 }

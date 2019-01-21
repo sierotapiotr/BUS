@@ -9,22 +9,22 @@ using System.Net;
 namespace Proxy
 {
     /// <summary>
-    /// server for proxy application 
+    /// Klasa reprezentująca serwer TCP (połączenie z Voterami)
     /// </summary>
     class Server
     {
         /// <summary>
-        /// server socket on which server is running
+        /// Socket dla serwera
         /// </summary>
         private TcpListener serverSocket;
 
         /// <summary>
-        /// server thread 
+        /// Wątek serwera
         /// </summary>
         private Thread serverThread;
 
         /// <summary>
-        /// dictionary which contains a client sockets
+        /// Połączenie socketów i nazw/identyfikatorów Voterów
         /// </summary>
         private Dictionary<TcpClient, string> clientSockets;
         public Dictionary<TcpClient, string> ClientSockets
@@ -32,21 +32,21 @@ namespace Proxy
             get { return clientSockets; }
         }
         /// <summary>
-        /// encoder used to encode a messages from bytes to string and again 
+        /// Enkoder do przekształcania wiadomości ASCII - UTF-8
         /// </summary>
         private ASCIIEncoding encoder;
         /// <summary>
-        /// display logs in console
+        /// Wyświetla logi w polu dziennika logów
         /// </summary>
         private Logs logs;
         /// <summary>
-        /// pares message from Client
+        /// Do pomocy przy towrzeniu wiadomości do Voterów
         /// </summary>
-        private ParserClient parserClient;
+        private Proxy proxy;
 
 
         /// <summary>
-        /// defualt constructor
+        /// Konstruktor klasy Server
         /// </summary>
         /// <param name="logs">display messages in logs console</param>
         /// <param name="proxy">main logic of Proxy application</param>
@@ -55,16 +55,16 @@ namespace Proxy
             clientSockets = new Dictionary<TcpClient, string>();
             this.encoder = new ASCIIEncoding();
             this.logs = logs;
-            this.parserClient = new ParserClient(this.logs, proxy);
+            this.proxy = proxy;
         }
 
-        
+
         /// <summary>
-        /// starts a server 
+        /// Rozpoczęcie działania serwera
         /// </summary>
-        /// <param name="port">number of port on which server is running</param>
-        /// <returns>true when server started successfully</returns>
-        public bool startServer(string port)
+        /// <param name="port">port na którym nasłuchuje połączeń</param>
+        /// <returns>zwraca prawdę gdy serwer zaczął poprawnie nasłuchiwać</returns>
+        public bool StartServer(string port)
         {
             int runningPort = Convert.ToInt32(port);
             if (serverSocket == null && serverThread == null)
@@ -72,17 +72,17 @@ namespace Proxy
                 this.serverSocket = new TcpListener(IPAddress.Any, runningPort);
                 this.serverThread = new Thread(new ThreadStart(ListenForClients));
                 this.serverThread.Start();
-                logs.addLog(Constants.SERVER_STARTED_CORRECTLY, true, Constants.LOG_INFO, true);
+                logs.AddLog(Constants.SERVER_STARTED_CORRECTLY, Logs.LogType.Info);
                 return true;
             }
             else
             {
-                logs.addLog(Constants.SERVER_UNABLE_TO_START, true, Constants.LOG_ERROR, true);
+                logs.AddLog(Constants.SERVER_UNABLE_TO_START, Logs.LogType.Error);
                 return false;
             }
         }
         /// <summary>
-        /// listen for client 
+        /// Nasłuchuje połączeń od klientów TCP, tworzy nowe wątki do komunikacji z nimi
         /// </summary>
         private void ListenForClients()
         {
@@ -105,7 +105,7 @@ namespace Proxy
 
 
         /// <summary>
-        /// display message received from clients
+        /// Wyświetlanie (i obsługiwanie) wiadomości od Voterów
         /// </summary>
         /// <param name="client"></param>
         private void displayMessageReceived(object client)
@@ -138,13 +138,13 @@ namespace Proxy
                 {
                     updateClientName(clientSocket, signal); //clients as first message send his id
                     string msg = Constants.CONNECTION_SUCCESSFUL + "&";
-                    sendMessage(clientSockets[clientSocket], msg);
-                    logs.addLog(Constants.VOTER_CONNECTED, true, Constants.LOG_MESSAGE, true);
+                    SendMessage(clientSockets[clientSocket], msg);
+                    logs.AddLog(Constants.VOTER_CONNECTED, Logs.LogType.Info);
                 }
                 else
                 {
-                    this.parserClient.parseMessageFromClient(signal);
-                    logs.addLog(signal, true, Constants.LOG_MESSAGE, true);
+                    HandleMessageFromClient(signal);
+                    logs.AddLog(signal, Logs.LogType.Message);
                 }
             }
             if (serverSocket != null)
@@ -158,15 +158,34 @@ namespace Proxy
                 catch
                 {
                 }
-                logs.addLog(Constants.DISCONNECTED_NODE, true, Constants.LOG_ERROR, true);
+                logs.AddLog(Constants.DISCONNECTED_NODE, Logs.LogType.Error);
             }
 
-            }
-        
+        }
+
         /// <summary>
-        /// stop server 
+        /// Obsługuje otrzymanych wiadomości 
         /// </summary>
-        public void stopServer()
+        /// <param name="msg">wiadomość</param>
+        public void HandleMessageFromClient(string msg)
+        {
+            string[] elem = msg.Split('&');
+            switch (elem[0])
+            {
+                case Constants.GET_SL_AND_SR:
+                    this.proxy.SendSLAndSR(elem[1]);
+                    break;
+                case Constants.VOTE:
+                    this.proxy.SaveVote(elem[1]);
+                    break;
+
+            }
+        }
+
+        /// <summary>
+        /// Wyłączenie serwera
+        /// </summary>
+        public void StopServer()
         {
             foreach (TcpClient clientSocket in clientSockets.Keys.ToList())
             {
@@ -183,11 +202,11 @@ namespace Proxy
         }
 
         /// <summary>
-        /// send message to client
+        /// Wysyłanie wiadomości klientom 
         /// </summary>
         /// <param name="name">client's name</param>
         /// <param name="msg">message</param>
-        public void sendMessage(string name, string msg)
+        public void SendMessage(string name, string msg)
         {
             for (int i = 0; i < clientSockets.Count; i++)
             {
@@ -221,7 +240,7 @@ namespace Proxy
         }
 
         /// <summary>
-        /// udpate client name in dictionary 
+        /// Zaktualizowanie nazwy/identyfikatora Votera
         /// </summary>
         /// <param name="client">TcpClient</param>
         /// <param name="signal">client name</param>
@@ -235,10 +254,10 @@ namespace Proxy
         }
 
         /// <summary>
-        /// get's TCP Client connected with name of client
+        /// Znaleźienie klienta TCP z Voterem o zadanej nazwie/identyfikatorze
         /// </summary>
-        /// <param name="name">client name</param>
-        /// <returns>TCP Client connected with given client name</returns>
+        /// <param name="name">nazwa Votera</param>
+        /// <returns>zwraca klienta TCP</returns>
         private TcpClient getTcpClient(string name)
         {
             TcpClient client = null;
@@ -253,8 +272,5 @@ namespace Proxy
             }
             return null;
         }
-
-
-
     }
 }
