@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.4.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.4\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\..\..\..\Biblioteki\bccrypto-csharp-1.8.4-bin\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

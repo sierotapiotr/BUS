@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 using System.Security.Cryptography;
 
 namespace ElectionAuthority
 {
-    /// <summary>
-    /// additional function for our program
-    /// </summary>
-    public static class Extentions
+    static class Shuffler
     {
-        
-
         /// <summary>
-        /// shuffling lists (used ie. for generation SL)
+        /// Randomizacja listy algorytmem Fishera–Yatesa
         /// </summary>
-        /// <typeparam name="T">type of list</typeparam>
-        /// <param name="list">list which is going to be shuffled</param>
+        /// <typeparam name="T">typ listy</typeparam>
+        /// <param name="list">randomizowana lista</param>
         public static void Shuffle<T>(this IList<T> list)
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();

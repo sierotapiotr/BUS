@@ -11,13 +11,13 @@ using System.Text;
 namespace ElectionAuthority
 {
     /// <summary>
-    /// class represents one ballot and has information about it
+    /// Pojedyncza karta do głosowania
     /// </summary>
     class Ballot
     {
-      
+
         /// <summary>
-        /// SL number - BigInteger for voter which let bind permutation, tokens and apropiate candidate list 
+        /// Identyfikator SL
         /// </summary>
         private BigInteger sl;
         public BigInteger SL
@@ -26,7 +26,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// tokens used for blind signature - it's public key's modulus
+        /// Tokeny
         /// </summary>
         private List<BigInteger> tokenList;
         public List<BigInteger> TokenList
@@ -36,7 +36,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// exponents (for blind signature) - public key's exponent
+        /// Lista eksponent do zaślepiania
         /// </summary>
         private List<BigInteger> exponentsList;
         public List<BigInteger> ExponentsList
@@ -46,7 +46,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// every ballot has its own signature factor (such as tokens) - private key's exponent
+        /// Lista czynników do podpisu
         /// </summary>
         private List<BigInteger> signatureFactor;
         public List<BigInteger> SignatureFactor
@@ -56,7 +56,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// signed column (EA signature)
+        /// Kolumny "ballot matrix" podpisane przez EA
         /// </summary>
         private BigInteger[] signedColumn;
         public BigInteger[] SignedColumn
@@ -65,7 +65,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// blind colmun recived from proxy
+        /// Zaślepione kolumny "ballot matrix" otrzymane od Proxy
         /// </summary>
         private BigInteger[] blindColumn;
         public BigInteger[] BlindColumn
@@ -74,7 +74,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// unblinded ballot, next step in blind signature
+        /// Odślepiona karta (do liczenia głosów)
         /// </summary>
         private string[,] unblindedBallot;
         public string[,] UnblindedBallot
@@ -84,7 +84,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// permutation connected to ballot (so SL too)
+        /// Permutacje danej karty (listy kandydatów)
         /// </summary>
         private List<BigInteger> permutation;
         public List<BigInteger> Permutation
@@ -94,7 +94,7 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// inverse permutation for each ballot
+        /// Odwrócone permutacje
         /// </summary>
         private List<BigInteger> inversePermutation;
         public List<BigInteger> InversePermutation
@@ -104,18 +104,18 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// ballot's constructor
+        /// Konstruktor klasy Ballot
         /// </summary>
-        /// <param name="SL">serial (list of candidate) number</param>
+        /// <param name="SL">numer seryjny SL</param>
         public Ballot(BigInteger SL)
         {
             this.sl = SL;
-            
+
         }
 
 
         /// <summary>
-        /// Method to sing each column in ballotMatrix
+        /// Podpisanie kolumn "ballot matrix"
         /// </summary>
         public void signColumn()
         {

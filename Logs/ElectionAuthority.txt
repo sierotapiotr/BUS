@@ -282,3 +282,4 @@
 [10:24:48] SL_RECEIVED_SUCCESSFULLY&
 [10:24:48] SL sent successfully to Proxy
 [10:25:02] Someone has been disconnected
+[11:44:23] Configuration loaded from file: ElectionAuthority.xml

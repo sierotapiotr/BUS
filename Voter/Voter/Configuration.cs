@@ -107,7 +107,7 @@ namespace Voter
 
             foreach (XmlNode xnode in xml.SelectNodes("//Voter[@ID]"))
             {
-
+                Console.Write("TEST TEST TEST");
                 string voterId = xnode.Attributes[Constants.ID].Value;
                 list.Add(voterId);
                 string electionAuthorityIP = xnode.Attributes[Constants.ELECTION_AUTHORITY_IP].Value;

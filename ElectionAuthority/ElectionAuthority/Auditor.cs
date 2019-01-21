@@ -10,25 +10,20 @@ using Org.BouncyCastle.Security;
 namespace ElectionAuthority
 {
     /// <summary>
-    /// class is used to verify if EA did not cheat
+    /// Sprawdza uczciwość EA (zobowiązanie bitowe i podpis)
     /// </summary>
     class Auditor
     {
 
         /// <summary>
-        /// allows to collect and display logs
+        /// Wyświetla logi w polu dziennika logów
         /// </summary>
-        private Logs logs;
+        private Logger logs;
 
         /// <summary>
-        /// Big Integer array of commited permutation recieved from EA
-        ///
+        /// Zobowiązanie bitowe otrzymane od EA
         /// </summary>
         private BigInteger[] commitedPermutation;
-
-        /// <summary>
-        /// set and get commited permutation
-        /// </summary>
         public BigInteger[] CommitedPermatation
         {
             set { commitedPermutation = value; }
@@ -36,25 +31,24 @@ namespace ElectionAuthority
         }
 
         /// <summary>
-        /// Auditor's constructor
+        /// Kontruktor klasy Auditor
         /// </summary>
-        /// <param name="logs">transfered log instance </param>
-        public Auditor(Logs logs)
+        /// <param name="logs">do zapisywania logów</param>
+        public Auditor(Logger logs)
         {
             this.logs = logs;
-
         }
 
         /// <summary>
-        /// checking the correctness of permutation
+        /// Sprawdzanie poprawności zobowiązania
         /// </summary>
-        /// <param name="privateKey">private key used for bit commitment</param>
-        /// <param name="publicKey">public key used for bit commitment</param>
-        /// <param name="explicitPermutation">used permutation (as open text)</param>
+        /// <param name="privateKey">użyty klucz prywatny</param>
+        /// <param name="publicKey">użyty klucz publiczny</param>
+        /// <param name="explicitPermutation">użyta permutacja (tekst jawny)</param>
         /// <returns></returns>
         public bool checkPermutation(RsaKeyParameters privateKey, RsaKeyParameters publicKey, BigInteger[] explicitPermutation)
         {
-            int i=0;
+            int i = 0;
             foreach (BigInteger partPermutation in explicitPermutation)
             {
 
@@ -64,10 +58,10 @@ namespace ElectionAuthority
                     return false;
                 }
                 i++;
-                
+
             }
 
             return true;
-        } 
+        }
     }
 }

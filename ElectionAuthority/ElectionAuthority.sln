@@ -1,20 +1,25 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionAuthority", "ElectionAuthority\ElectionAuthority.csproj", "{4D9B4D50-5379-498C-B4A5-0B65D51653C6}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionAuthority", "ElectionAuthority\ElectionAuthority.csproj", "{6F306EDD-525B-4581-9EB0-9FA05E82C825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x86 = Debug|x86
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4D9B4D50-5379-498C-B4A5-0B65D51653C6}.Debug|x86.ActiveCfg = Debug|x86
-		{4D9B4D50-5379-498C-B4A5-0B65D51653C6}.Debug|x86.Build.0 = Debug|x86
-		{4D9B4D50-5379-498C-B4A5-0B65D51653C6}.Release|x86.ActiveCfg = Release|x86
-		{4D9B4D50-5379-498C-B4A5-0B65D51653C6}.Release|x86.Build.0 = Release|x86
+		{6F306EDD-525B-4581-9EB0-9FA05E82C825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F306EDD-525B-4581-9EB0-9FA05E82C825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F306EDD-525B-4581-9EB0-9FA05E82C825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F306EDD-525B-4581-9EB0-9FA05E82C825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98DB649B-9E08-410F-ACE4-96B64EDE34ED}
 	EndGlobalSection
 EndGlobal

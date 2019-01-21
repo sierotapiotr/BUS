@@ -2,92 +2,105 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using Org.BouncyCastle.Math;
 
 namespace ElectionAuthority
 {
+    /// <summary>
+    /// Zapewnia komunikacje poprzez połączenia TCP
+    /// </summary>
     class Server
     {
-        private TcpListener serverSocket;
-        private Thread serverThread;
-        private Dictionary<TcpClient, string> clientSockets;
+        private TcpListener sListener;
+        private Thread sThread;
+        private Dictionary<TcpClient, string> clients;
         private ASCIIEncoding encoder;
 
         /// <summary>
-        /// allows to collect and display logs - information in console
+        /// Wyświetla logi w polu dziennika logów
         /// </summary>
-        private Logs logs;
+        private Logger logs;
 
         /// <summary>
-        /// allows to parse received messages
+        /// Połączenie z główny obiektem EA w celu przekazania otrzymanych danych
         /// </summary>
-        private Parser parser;
+        private ElectionAuthority electionAuthority;
 
         /// <summary>
-        /// server which allows to communicate with other processes 
+        /// Konstruktor klasy Server 
         /// </summary>
-        /// <param name="logs">allows to collect and display logs - information in console</param>
-        /// <param name="electionAuthority">represents class where is main logic of application</param>
-        public Server(Logs logs, ElectionAuthority electionAuthority)
+        /// <param name="logs">do zapisywania logów</param>
+        /// <param name="electionAuthority">do połączenia z głównym obiektem EA</param>
+        public Server(Logger logs, ElectionAuthority eA)
         {
-            clientSockets = new Dictionary<TcpClient, string>();
+            clients = new Dictionary<TcpClient, string>();
             this.encoder = new ASCIIEncoding();
             this.logs = logs;
-            this.parser = new Parser(this.logs, electionAuthority);
+            this.electionAuthority = eA;
         }
+
         /// <summary>
-        /// allow to start server
+        /// Rozpoczęcie działania serwera
         /// </summary>
-        /// <param name="port">number of port on which server is running, this information comes from configuration xml file</param>
-        /// <returns>returns true when server started successfully</returns>
-        public bool startServer(string port)
+        /// <param name="port">port na którym nasłuchuje połączeń</param>
+        /// <returns>zwraca prawdę gdy serwer zaczął poprawnie nasłuchiwać</returns>
+        public bool Start(string stringPort)
         {
-            int runningPort = Convert.ToInt32(port);
-            Console.WriteLine(runningPort);
-            if (serverSocket == null && serverThread == null)
+            int port = Convert.ToInt32(stringPort);
+            Console.WriteLine("[Port used to communication] >> " + port);
+            if (sListener == null && sThread == null)
             {
                 try
                 {
-                    this.serverSocket = new TcpListener(IPAddress.Any, runningPort);
-                    this.serverThread = new Thread(new ThreadStart(ListenForClients));
-                    this.serverThread.Start();
+                    this.sListener = new TcpListener(IPAddress.Any, port);
+                    this.sThread = new Thread(new ThreadStart(ListenForClients));
+                    this.sThread.Start();
+                    logs.AddLog(Constants.LOG_SERVER_START, Logger.LogType.Info);
                 }
-                catch(Exception)
+                catch (Exception exp)
                 {
-                    Console.WriteLine("Exception during starting server -  ElectionAuthority");
+                    Console.WriteLine("[Server start] >> " + exp);
+                    logs.AddLog(Constants.LOG_SERVER_START_ERROR, Logger.LogType.Error);
+                    logs.AddExpToFile(exp);
+                    return false;
                 }
-                logs.addLog(Constants.SERVER_STARTED_CORRECTLY, true, Constants.LOG_INFO, true);
+                
                 return true;
             }
             else
             {
-                logs.addLog(Constants.SERVER_UNABLE_TO_START, true, Constants.LOG_ERROR, true);
+                logs.AddLog(Constants.LOG_SERVER_START_ERROR, Logger.LogType.Error);
                 return false;
             }
         }
+
         /// <summary>
-        /// listen for comming clients, when request comes it is connected with server (another thread is started)
+        /// Nasłuchuje połączeń od klientów TCP, tworzy nowe wątki do komunikacji z nimi
         /// </summary>
         private void ListenForClients()
         {
             try
             {
-                this.serverSocket.Start();
+                this.sListener.Start();
             }
-            catch (SocketException)
+            catch (SocketException exp)
             {
-                Console.WriteLine("Troubles to start listening for clients");
+                Console.WriteLine("[Server listener] >> " + exp);
+                logs.AddExpToFile(exp);
             }
             while (true)
             {
                 try
                 {
-                    TcpClient clientSocket = this.serverSocket.AcceptTcpClient();
-                    clientSockets.Add(clientSocket, Constants.UNKNOWN);
-                    Thread clientThread = new Thread(new ParameterizedThreadStart(displayMessageReceived));
-                    clientThread.Start(clientSocket);
+                    TcpClient clientSocket = this.sListener.AcceptTcpClient();
+                    clients.Add(clientSocket, "NEW");
+                    Thread thread = new Thread(new ParameterizedThreadStart(HandleCommunication));
+                    thread.Start(clientSocket);
                 }
                 catch
                 {
@@ -95,16 +108,17 @@ namespace ElectionAuthority
                 }
             }
         }
-        /// <summary>
-        /// displays received message from client 
-        /// </summary>
-        /// <param name="client">name of client, each client has it own name which is loaded from config file</param>
-        private void displayMessageReceived(object client)
-        {
-            TcpClient clientSocket = (TcpClient)client;
-            NetworkStream stream = clientSocket.GetStream();
 
-            byte[] message = new byte[4096];
+        /// <summary>
+        /// Obsługa komunikacji z klientami TCP 
+        /// </summary>
+        /// <param name="clientTcp">klient z którym przeprowadzana jest komunikacja (uzyskany od listenera) </param>
+        private void HandleCommunication(object clientTcp)
+        {
+            TcpClient client = (TcpClient)clientTcp;
+            NetworkStream stream = client.GetStream();
+
+            byte[] bytesMsg = new byte[4096];
             int bytesRead;
 
             while (stream.CanRead)
@@ -112,90 +126,98 @@ namespace ElectionAuthority
                 bytesRead = 0;
                 try
                 {
-                    bytesRead = stream.Read(message, 0, 4096);
+                    bytesRead = stream.Read(bytesMsg, 0, 4096);
                 }
                 catch
                 {
                     break;
                 }
 
-                if (bytesRead == 0)
+                if (bytesRead == 0) // brak nowych wiadomości
                 {
                     break;
                 }
 
-                string signal = encoder.GetString(message, 0, bytesRead);
-                if (clientSockets[clientSocket].Equals(Constants.UNKNOWN))
+                string msg = encoder.GetString(bytesMsg, 0, bytesRead);
+                if (clients[client].Equals("NEW"))  // pierwsza wiadomość od klienta, zawiera jego nazwę
                 {
-                    updateClientName(clientSocket, signal);
-                    sendMessage(clientSockets[clientSocket], Constants.CONNECTED);
+                    if (msg.Contains("//NAME// ")) // zmiana nazwy z NEW na przysłaną przez klienta
+                    {
+                        string[] tmp = msg.Split(' ');
+                        clients[client] = tmp[1];
+                    }
+                    SendMessage(clients[client], Constants.MSG_NEW_CLIENT);  // wysłanie potwierdzenia
                 }
                 else
                 {
-                    logs.addLog(signal, true, Constants.LOG_MESSAGE, true); //do usuniecia ale narazie widzim co leci w komuniakcji
-                    this.parser.parseMessage(signal);
+                    logs.AddLog(Constants.LOG_CLIENT_MSG + clients[client] + " :", Logger.LogType.Info);
+                    logs.AddLog(msg, Logger.LogType.Message, false);
+                    HandleMessage(msg);
                 }
             }
-            if (serverSocket != null)
+            if (sListener != null)
             {
                 try
                 {
-                    clientSocket.GetStream().Close();
-                    clientSocket.Close();
-                    clientSockets.Remove(clientSocket);
+                    client.GetStream().Close();
+                    client.Close();
+                    clients.Remove(client);
+                    logs.AddLog(Constants.LOG_CLIENT_DISCONNECT, Logger.LogType.Info);
                 }
-                catch (Exception)
+                catch (Exception exp)
                 {
-                    Console.WriteLine("Troubles with displaying received message");
-                }
-
-                logs.addLog(Constants.DISCONNECTED_NODE, true, Constants.LOG_ERROR, true);
+                    Console.WriteLine("[Server client " + clients[client] + " ] >> " + exp);
+                    logs.AddExpToFile(exp);
+                    logs.AddLog(Constants.LOG_CLIENT_DISCONNECT_ERROR + clients[client], Logger.LogType.Error);
+                }  
             }
-
         }
         /// <summary>
-        /// stops server
+        /// Wyłączenie serwera
         /// </summary>
-        public void stopServer()
+        public void Stop()
         {
             try
             {
-
-                foreach (TcpClient clientSocket in clientSockets.Keys.ToList())
+                foreach (TcpClient client in clients.Keys.ToList())
                 {
-                    clientSocket.GetStream().Close();
-                    clientSocket.Close();
-                    clientSockets.Remove(clientSocket);
+                    client.GetStream().Close();
+                    client.Close();
+                    clients.Remove(client);
                 }
-                if (serverSocket != null)
+                if (sListener != null)
                 {
-                    serverSocket.Stop();
+                    sListener.Stop();
                 }
-                serverSocket = null;
-                serverThread = null;
+                sListener = null;
+                sThread = null;
+                logs.AddLog(Constants.LOG_SERVER_CLOSE, Logger.LogType.Info);
             }
-            catch(Exception)
+            catch (Exception exp)
             {
-                Console.WriteLine("Exception during closing server -  ElectionAuthority");
+                Console.WriteLine("[Server closing] >> " + exp);
+                logs.AddExpToFile(exp);
+                logs.AddLog(Constants.LOG_SERVER_CLOSE_ERROR, Logger.LogType.Error);
             }
         }
+
         /// <summary>
-        /// sends message to client 
+        /// Wysyłanie wiadomości klientom 
         /// </summary>
-        /// <param name="name">name of client which we want to send a message</param>
-        /// <param name="msg">message which we want to send</param>
-        public void sendMessage(string name, string msg)
+        /// <param name="name">nazwa klienta</param>
+        /// <param name="msg">wiadomość</param>
+        public void SendMessage(string name, string msg)
         {
-            if (serverSocket != null)
+            if (sListener != null)
             {
                 NetworkStream stream = null;
                 TcpClient client = null;
-                List<TcpClient> clientsList = clientSockets.Keys.ToList();
-                for (int i = 0; i < clientsList.Count; i++)
+                List<TcpClient> clientsList = clients.Keys.ToList();
+                foreach (KeyValuePair<TcpClient, string> cl in clients)
                 {
-                    if (clientSockets[clientsList[i]].Equals(name))
+                    if (cl.Value == name)
                     {
-                        client = clientsList[i];
+                        client = cl.Key;
                         break;
                     }
                 }
@@ -212,24 +234,39 @@ namespace ElectionAuthority
                     else
                     {
                         stream.Close();
-                        clientSockets.Remove(client);
+                        clients.Remove(client);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// updates a client name
+        /// Obsługuje otrzymane wiadomości
         /// </summary>
-        /// <param name="client">tcp socket which client is connected to</param>
-        /// <param name="signal">client's name</param>
-        private void updateClientName(TcpClient client, string signal)
+        /// <param name="msg">wiadomośc</param>
+        /// <returns>zwraca fałsz jeśli nie potrafi obsłużyć wiadomości</returns>
+        public bool HandleMessage(string msg)
         {
-            if (signal.Contains("//NAME// "))
+            string[] parts = msg.Split('&');
+            switch (parts[0])
             {
-                string[] tmp = signal.Split(' ');
-                clientSockets[client] = tmp[1];
+                case Constants.RCV_SL_ACK:
+                    this.logs.AddLog(Constants.LOG_SL_SENT, Logger.LogType.Info);
+                    return true;
+                case Constants.RCV_GET_CANDIDATES:
+                    string[] str = parts[1].Split('=');
+                    string name = str[0];
+                    BigInteger SL = new BigInteger(str[1]);
+                    this.electionAuthority.SendCandidateListPermutated(name, SL);
+                    return true;
+                case Constants.RCV_BLIND_PROXY_BALLOT:
+                    this.electionAuthority.ReadBlindBallotMatrix(parts[1]);
+                    return true;
+                case Constants.RCV_UNBLINDED_BALLOT_MATRIX:
+                    this.electionAuthority.ReadUnblindedBallotMatrix(parts[1]);
+                    return true;
             }
+            return false;
         }
     }
 }

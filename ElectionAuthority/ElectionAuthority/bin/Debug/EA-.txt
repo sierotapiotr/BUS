@@ -1,0 +1,9 @@
+ 09:45:47 >>> Uruchomiono program Election Authority
+ 09:51:28 >>> Uruchomiono program Election Authority
+ 09:52:44 >>> Uruchomiono program Election Authority
+ 09:53:03 >>> Uruchomiono program Election Authority
+ 09:57:41 >>> Uruchomiono program Election Authority
+ 09:57:59 >>> Uruchomiono program Election Authority
+ 09:58:19 >>> Uruchomiono program Election Authority
+ 10:05:08 >>> Uruchomiono program Election Authority
+ 11:48:30 >>> Uruchomiono program Election Authority
